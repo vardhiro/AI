@@ -1,0 +1,176 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   font-family: Verdana, Geneva, Tahoma, sans-serif, Helvetica, sans-serif;
+   color: #000;
+   text-decoration: none;
+}
+
+body {
+   overflow: hidden;
+
+   > * {
+      position: fixed;
+      min-height: 100vh;
+      width: 100vw;
+      background: linear-gradient(45deg, #fff, #ff3848);
+   }
+}
+
+.flex {
+   display: flex;
+}
+
+.flex.outer {
+   justify-content: space-between;
+   // gap: 2em;
+}
+
+.flex.inner {
+   justify-content: center;
+}
+
+.btn {
+   font-size: 1.5em;
+   padding: 0.25em 1em;
+   cursor: pointer;
+   border: 2px solid;
+   background-color: transparent;
+   border-radius: 10px;
+   transition: background-color 0.5s ease;
+   color: hsl(240, 100%, 50%);
+
+   &:hover,
+   &:focus {
+      color: hsl(340, 100%, 50%);
+      outline: none;
+   }
+}
+
+.center {
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+}
+
+p,
+h1 {
+   text-align: center;
+   word-wrap: break-word;
+}
+
+em {
+   color: hsl(240, 100%, 50%);
+}
+
+.home-page {
+   height: 100vh;
+   padding: 0 20%;
+
+   h1 {
+      font-size: 2.5em;
+   }
+
+   h3 {
+      font-size: 2em;
+   }
+
+   p {
+      color: hsl(20, 10%, 30%);
+      margin: 1em 0 2em;
+   }
+}
+
+.setup-page {
+    > div {
+      width: 25em;
+      margin-top: 1em;
+
+      >div {
+         width: 12em;
+
+      }
+   }
+
+   label {
+      font-weight: 800;
+      line-height: 40px;
+   }
+
+   input {
+      margin: 0em 0 .5em;
+      height: 2em;
+      width: 100%;
+      max-width: 20em;
+      border: none;
+      font-size: 1.25em;
+      background: transparent;
+      // border-bottom: 2px solid #999;
+      border: 2px solid #999;
+      border-radius: 10px;
+      outline: none;
+      padding: 0 10px;
+
+      &:focus {
+         border-color: #0000ffa0;
+         color: #0000ffa0;
+      }
+   }
+}
+
+.page-ready {
+   text-align: center;
+   position: relative;
+
+   h1 {
+      font-size: 3em;
+   }
+   p, strong {
+      max-width: 90vw;
+      word-wrap: break-word;
+      margin: 5px 0;
+   }
+   .btn {
+      position: absolute;
+      right: 20px;
+      bottom: 20px;
+   }
+}
+
+.page-ask {
+   h1 {
+      font-size: 3em;
+      strong {
+         color: #ff3848;
+      }
+   }
+   .search-input {
+      margin: 1em 1em 1em;
+      border-radius: 20px;
+      border: 2px solid #0000ffa0;
+      padding: 5px 8px;
+
+      > * {
+         background: transparent;
+         border: none;
+         outline: none;
+      }
+
+      input {
+         font-size: 1.15em;
+      }
+
+      .btn {
+         padding: 0;
+         color: #000;
+
+         &:hover,
+         &:focus {
+            color: #0000ffa0;
+         }
+      }
+
+   }
+
+}
