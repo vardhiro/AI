@@ -1,6 +1,8 @@
+// Knowledge
+
 // These are the informations for the AI to answer the client's question
-var date = new Date();
-var days = [
+let date = new Date();
+let days = [
    "Sunday",
    "Monday",
    "Tuesday",
@@ -9,7 +11,7 @@ var days = [
    "Friday",
    "Saturday",
 ];
-var months = [
+let months = [
    "January",
    "February",
    "March",
@@ -24,13 +26,13 @@ var months = [
    "November",
    "December",
 ];
-var timeRange;
-var hour = date.getHours();
+let timeRange;
+let hour = date.getHours();
 
 hour > 12 ? ((hour -= 12), (timeRange = "p.m.")) : (timeRange = "a.m.");
 
-var time = {
-   presentHour: date.getFullYear(),
+let time = {
+   presentYear: date.getFullYear(),
    presentMonth:
       months[
          date.getMonth() + 1
@@ -42,21 +44,15 @@ var time = {
    presentSecond: date.getSeconds(),
    presentTime:
       hour +
-      ":" +
-      date.getMinutes() +
-      ":" +
-      date.getSeconds() +
       " " +
+      date.getMinutes() +
+      " " +
+
       timeRange,
 };
 
-console.log(time.presentHour);
-console.log(time.presentMinute);
-console.log(time.presentSecond);
-console.log(time.presentTime);
-
 // 7 wonders of the world
-var wonders7 = [
+let wonders7 = [
    "Great Wall of China",
    "Chicén Itzá",
    "Petra",
@@ -67,7 +63,7 @@ var wonders7 = [
 ];
 
 // continents
-var continents = [
+let continents = [
    "Africa",
    "Antartica",
    "Asia",
@@ -78,17 +74,64 @@ var continents = [
 ];
 
 // Maths
-function calculate() {
-   let wordsToBeRemoved = ["solve", "what is the", "what is the value", "what is", "what", "is", "the", "value", "of"];
-   let searchValue = searchText.value;
-   let searchValueFinal;
-   wordsToBeRemoved.forEach(element => {
+searchBtn.addEventListener("click", (e) => {
+   let wordsToBeRemoved = [
+      "solve",
+      "what is the value of",
+      "what is",
+      "value of",
+   ];
+   let searchValue = String(searchText.value);
+   let answer;
+   wordsToBeRemoved.forEach((word) => {
+      if (searchValue.includes(word)) {
+         searchValue = searchValue.replace(word, "");
+         answer = eval(searchValue);
+      }
+   });
 
-	searchValue = searchValue.replace(element, "");
-      let answer = eval(searchValue);
-      console.debug(answer);
-      console.log(searchValue);
-})
 
+   if (!(isNaN(answer))) {
+      speech.text = `The answer is ${answer}`;
+   }
+});
+
+// Weather
+function getWeather() {
+   if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+   } else {
+      alert("Geolocation is not supported by this browser.");
+   }
 }
-searchBtn.addEventListener("click", calculate);
+function showPosition(position) {
+   let longitude = position.coords.longitude;
+   let latitude = position.coords.latitude;
+
+   const api = "626ae011b9f2a70efc5fc4f98b510fe4";
+   const base = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${api}&units=metric`;
+
+   fetch(base)
+      .then((response) => {
+         return response.json();
+      })
+      .then((data) => {
+         const { temp } = data.main;
+         const place = data.name;
+         const { description } = data.weather[0];
+         const { sunrise, sunset } = data.sys;
+         const fahrenheit = (temp * 9) / 5 + 32;
+
+         const sunriseGMT = new Date(sunrise * 1000);
+         const sunsetGMT = new Date(sunset * 1000);
+
+         // // Output
+         // speech.text = `Location: ${place}`;
+         // speech.text = `Description: ${description}`;
+         // speech.text = `TempC: ${temp.toFixed(2)}°C`;
+         // speech.text = `TempF: ${fahrenheit.toFixed(2)}°F`;
+         // speech.text = `Sunrise: ${sunriseGMT.toLocaleDateString()}, ${sunriseGMT.toLocaleTimeString()}`;
+         // speech.text = `Sunset: ${sunsetGMT.toLocaleDateString()}, ${sunsetGMT.toLocaleTimeString()}`;
+      });
+}
+/* /knowlege */
