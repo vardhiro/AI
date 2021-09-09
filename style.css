@@ -1,0 +1,225 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+:root {
+  --sans-pro: 'Source Sans Pro', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: var(--sans-pro);
+}
+
+::-moz-selection {
+  background: transparent;
+  color: #5c25a5;
+}
+
+::selection {
+  background: transparent;
+  color: #5c25a5;
+}
+
+body {
+  overflow: hidden;
+}
+
+body > * {
+  height: 100vh;
+  width: 100vw;
+}
+
+.flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flex.outer {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.flex.inner {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.btn {
+  font-size: 1.5em;
+  padding: 0.25em 1em;
+  cursor: pointer;
+  border: 2px solid;
+  background-color: transparent;
+  border-radius: 10px;
+  -webkit-transition: background-color 0.5s ease;
+  transition: background-color 0.5s ease;
+  color: blue;
+}
+
+.btn:hover {
+  color: #222222a0;
+  outline: none;
+}
+
+.center {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+p,
+h1 {
+  text-align: center;
+  word-wrap: break-word;
+}
+
+em {
+  color: blue;
+}
+
+.home-page {
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff3848aa)), url("https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&h=900&w=900");
+  background: linear-gradient(#ff3848aa), url("https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&h=900&w=900");
+  /* Photo by Tara Winstead from Pexels */
+  background-size: cover;
+  padding: 0 20%;
+}
+
+.home-page h1 {
+  font-size: 2.5em;
+}
+
+.home-page h3 {
+  font-size: 2em;
+}
+
+.home-page p {
+  color: #222222a0;
+  margin: 1em 0 2em;
+  font-size: 1.2em;
+}
+
+.setup-page {
+  background: -webkit-gradient(linear, left top, left bottom, from(#0000ff50)), url("https://images.pexels.com/photos/590037/pexels-photo-590037.jpeg?auto=compress&cs=tinysrgb&h=900&w=900");
+  background: linear-gradient(#0000ff50), url("https://images.pexels.com/photos/590037/pexels-photo-590037.jpeg?auto=compress&cs=tinysrgb&h=900&w=900");
+  background-size: cover;
+}
+
+.setup-page > div {
+  width: 25em;
+  margin-top: 1em;
+}
+
+.setup-page > div > div {
+  width: 12em;
+}
+
+.setup-page label {
+  font-weight: 800;
+  line-height: 40px;
+}
+
+.setup-page input {
+  margin: 0 0 1em;
+  height: 2em;
+  width: 100%;
+  max-width: 20em;
+  font-size: 1.25em;
+  background: transparent;
+  border: 2px solid #0000ffa0;
+  border-radius: 10px;
+  outline: none;
+  padding: 0 10px;
+}
+
+.setup-page input:focus {
+  border-color: #0000ffa0;
+  color: #0000ffa0;
+  -webkit-box-shadow: 0 0 .25em;
+          box-shadow: 0 0 .25em;
+}
+
+.page-ready {
+  background: repeating-linear-gradient(90deg, #0000ff50, #ff3848), repeating-linear-gradient(90deg, #0000ff50, #ff3848);
+  text-align: center;
+  position: relative;
+}
+
+.page-ready h1 {
+  font-size: 3em;
+}
+
+.page-ready p, .page-ready strong {
+  max-width: 90vw;
+  word-wrap: break-word;
+  margin: 5px 0;
+}
+
+.page-ready .btn {
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
+}
+
+.page-ask {
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffff89aa), to(#5c25a5aa)), url("https://source.unsplash.com/daily?technology");
+  background: linear-gradient(180deg, #ffff89aa, #5c25a5aa), url("https://source.unsplash.com/daily?technology");
+  background-size: cover;
+  mix-blend-mode: multiply;
+}
+
+.page-ask h1 {
+  font-size: 3em;
+}
+
+.page-ask h1 strong {
+  color: #222222a0;
+}
+
+.page-ask .search-input {
+  margin: 1em 1em 1em;
+  border-radius: 20px;
+  border: 2px solid #0000ffa0;
+  padding: 5px 8px;
+}
+
+.page-ask .search-input > * {
+  background: transparent;
+  border: none;
+  outline: none;
+}
+
+.page-ask .search-input input {
+  font-size: 1.15em;
+}
+
+.page-ask .search-input .btn {
+  padding: 0;
+  color: #000;
+}
+
+.page-ask .search-input .btn:hover, .page-ask .search-input .btn:focus {
+  color: #0000ffa0;
+}
+
+.page-ask .answer {
+  text-align: center;
+  max-width: 786px;
+  margin: 2vh auto;
+  line-height: 1.5em;
+  color: #222;
+  font-weight: 600;
+  font-family: sans-serif;
+}
+/*# sourceMappingURL=style.css.map */

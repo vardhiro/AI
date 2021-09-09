@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>AI</title>
+
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+	<link href="style.css" rel="stylesheet">
+	<script src="script.js" defer></script>
+</head>
+
+<body>
+	<section class="home-page flex center temporary" id="home-page">
+		<h1>Hello,</h1>
+		<h1>How can I help you!</h1>
+		<p>I am an AI made by Nandish Sarkar. I am very curious to know about you and help you. Don't worry all the
+			informations that you share with me are always safe and stored in this device, so no one can get these
+			informations until and unless they have your device with them.</p>
+		<button class="btn next-btn" id="next-btn">Next</button>
+	</section><!-- /Home-page -->
+
+	<section id="setup-page" class="setup-page flex center temporary">
+		<h1>Please enter the required informations to <em>get started.</em></h1>
+		<!-- <form class="flex center"> -->
+		<div class="flex outer">
+			<div>
+				<label for="first-name">First Name</label>
+				<br>
+				<input type="text" id="first-name" required>
+			</div>
+			<div>
+				<label for="last-name">Last Name</label>
+				<br>
+				<input type="text" id="last-name" required>
+			</div>
+		</div>
+
+		<div>
+			<label for="date-of-birth">Date Of Birth</label>
+			<br>
+			<input type="date" id="date-of-birth" required>
+		</div>
+
+		<div>
+			<label for="email">Email</label>
+			<br>
+			<input type="email" id="email" required>
+		</div>
+
+		<button class="btn next-btn" id="start-btn">Get started!</button>
+		<!-- </form> -->
+	</section><!-- /page-setup -->
+
+	<section class="page-ready flex center" id="page-ready">
+		<h1>Hello<span class="name"></span>!</h1>
+		<p>Your AI is now ready to serve you. Click the <em>Continue</em> button to begin. </p>
+		<strong>P.S. - This AI is under BETA, so it is very far from those "Google Assistant" or "Siri". I'm working
+			constantly to make it more powerful. Thank you. Enjoy!</strong>
+
+		<button class="btn next-btn" id="continue-btn">Continue</button>
+	</section><!-- /page-ready -->
+
+	<section class="page-ask flex center" id="page-ask">
+		<h1>Hello <strong class="name"></strong>,</h1>
+		<h1><em>Tell me what to do!</em></h1>
+		<br>
+		<div class="flex search-input">
+			<input type="search" id="search-text" class="search-text">
+			<button class="btn material-icons" id="voice-search">mic</button>
+		</div>
+		<button class="btn material-icons-outlined" id="search-btn">search</button>
+		<div class="answer" id="answer"></div>
+	</section> <!-- /page-ask -->
+</body>
+
+</html>
