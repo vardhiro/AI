@@ -407,7 +407,7 @@ function search() {
       searchTextValue.includes("call") &&
       searchTextValueContainsNumber()
    ) {
-      window.open(`tel:${searchTextValue.split(" ")[0]}`, "_blank");
+      window.open(`tel:${searchTextValue.split(" ")[1]}`, "_blank");
    } else if (
       searchTextValue.includes("call") &&
       searchTextValue.includes("police")

@@ -68,7 +68,7 @@ em {
 }
 
 .home-page {
-   background: linear-gradient(#ff3848aa), url("https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&h=900&w=900"); /* Photo by Tara Winstead from Pexels */
+   background: linear-gradient(#ff3848aa), url("Assets/AI-home.jpg"); /* Photo by Tara Winstead from Pexels */
    background-size: cover;
    padding: 0 20%;
 
@@ -88,7 +88,7 @@ em {
 }
 
 .setup-page {
-   background: linear-gradient(#0000ff50), url("https://images.pexels.com/photos/590037/pexels-photo-590037.jpeg?auto=compress&cs=tinysrgb&h=900&w=900");
+   background: linear-gradient(#0000ff50), url("Assets/AI-form.jpg");
    background-size: cover;
     > div {
       width: 25em;
