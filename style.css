@@ -1,10 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap");
+:root {
+  --sans-pro: 'Source Sans Pro', sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: sans-serif;
-  text-decoration: none;
+  font-family: var(--sans-pro);
+}
+
+::-moz-selection {
+  background: transparent;
+  color: #5c25a5;
+}
+
+::selection {
+  background: transparent;
+  color: #5c25a5;
 }
 
 body {
@@ -14,7 +28,6 @@ body {
 body > * {
   height: 100vh;
   width: 100vw;
-  background: linear-gradient(45deg, #fff, #ff3848);
 }
 
 .flex {
@@ -48,7 +61,7 @@ body > * {
 }
 
 .btn:hover {
-  color: #ff0055;
+  color: #222222a0;
   outline: none;
 }
 
@@ -76,6 +89,10 @@ em {
 }
 
 .home-page {
+  background: -webkit-gradient(linear, left top, left bottom, from(#ff3848aa)), url("https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&h=900&w=900");
+  background: linear-gradient(#ff3848aa), url("https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&h=900&w=900");
+  /* Photo by Tara Winstead from Pexels */
+  background-size: cover;
   padding: 0 20%;
 }
 
@@ -88,8 +105,15 @@ em {
 }
 
 .home-page p {
-  color: #544a45;
+  color: #222222a0;
   margin: 1em 0 2em;
+  font-size: 1.2em;
+}
+
+.setup-page {
+  background: -webkit-gradient(linear, left top, left bottom, from(#0000ff50)), url("https://images.pexels.com/photos/590037/pexels-photo-590037.jpeg?auto=compress&cs=tinysrgb&h=900&w=900");
+  background: linear-gradient(#0000ff50), url("https://images.pexels.com/photos/590037/pexels-photo-590037.jpeg?auto=compress&cs=tinysrgb&h=900&w=900");
+  background-size: cover;
 }
 
 .setup-page > div {
@@ -113,7 +137,7 @@ em {
   max-width: 20em;
   font-size: 1.25em;
   background: transparent;
-  border: 2px solid #999;
+  border: 2px solid #0000ffa0;
   border-radius: 10px;
   outline: none;
   padding: 0 10px;
@@ -122,9 +146,12 @@ em {
 .setup-page input:focus {
   border-color: #0000ffa0;
   color: #0000ffa0;
+  -webkit-box-shadow: 0 0 .25em;
+          box-shadow: 0 0 .25em;
 }
 
 .page-ready {
+  background: repeating-linear-gradient(90deg, #0000ff50, #ff3848), repeating-linear-gradient(90deg, #0000ff50, #ff3848);
   text-align: center;
   position: relative;
 }
@@ -145,12 +172,19 @@ em {
   bottom: 20px;
 }
 
+.page-ask {
+  background: -webkit-gradient(linear, left top, left bottom, from(#ffff89aa), to(#5c25a5aa)), url("https://source.unsplash.com/daily?technology");
+  background: linear-gradient(180deg, #ffff89aa, #5c25a5aa), url("https://source.unsplash.com/daily?technology");
+  background-size: cover;
+  mix-blend-mode: multiply;
+}
+
 .page-ask h1 {
   font-size: 3em;
 }
 
 .page-ask h1 strong {
-  color: #ff3848;
+  color: #222222a0;
 }
 
 .page-ask .search-input {

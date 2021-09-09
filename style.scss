@@ -1,19 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');:root {
+   --sans-pro: 'Source Sans Pro', sans-serif;
+}
 * {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
-   font-family: sans-serif;
-   // color: #000;
-   text-decoration: none;
+   font-family: var(--sans-pro);
+}
+
+::selection {
+   background: transparent;
+   color: #5c25a5;
 }
 
 body {
    overflow: hidden;
-
    > * {
       height: 100vh;
       width: 100vw;
-      background: linear-gradient(45deg, #fff, #ff3848);
+      // background: linear-gradient(45deg, #fff, #ff3848);
    }
 }
 
@@ -41,7 +46,7 @@ body {
    color: hsl(240, 100%, 50%);
 
    &:hover {
-      color: hsl(340, 100%, 50%);
+      color: #222222a0;
       outline: none;
    }
 }
@@ -63,6 +68,8 @@ em {
 }
 
 .home-page {
+   background: linear-gradient(#ff3848aa), url("https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&h=900&w=900"); /* Photo by Tara Winstead from Pexels */
+   background-size: cover;
    padding: 0 20%;
 
    h1 {
@@ -74,12 +81,15 @@ em {
    }
 
    p {
-      color: hsl(20, 10%, 30%);
+      color: #222222a0;
       margin: 1em 0 2em;
+      font-size: 1.2em;
    }
 }
 
 .setup-page {
+   background: linear-gradient(#0000ff50), url("https://images.pexels.com/photos/590037/pexels-photo-590037.jpeg?auto=compress&cs=tinysrgb&h=900&w=900");
+   background-size: cover;
     > div {
       width: 25em;
       margin-top: 1em;
@@ -102,7 +112,7 @@ em {
       max-width: 20em;
       font-size: 1.25em;
       background: transparent;
-      border: 2px solid #999;
+      border: 2px solid #0000ffa0;
       border-radius: 10px;
       outline: none;
       padding: 0 10px;
@@ -110,11 +120,14 @@ em {
       &:focus {
          border-color: #0000ffa0;
          color: #0000ffa0;
+         box-shadow: 0 0 .25em;
       }
    }
 }
 
 .page-ready {
+   background: repeating-linear-gradient(90deg, #0000ff50, #ff3848), repeating-linear-gradient(90deg, #0000ff50, #ff3848);
+
    text-align: center;
    position: relative;
 
@@ -134,11 +147,15 @@ em {
 }
 
 .page-ask {
+   background: linear-gradient(180deg, #ffff89aa, #5c25a5aa), url("https://source.unsplash.com/daily?technology");
+   background-size: cover;
+   mix-blend-mode: multiply;
+
    h1 {
       font-size: 3em;
 
       strong {
-         color: #ff3848;
+         color: #222222a0;
       }
    }
    .search-input {

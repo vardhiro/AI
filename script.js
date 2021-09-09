@@ -16,7 +16,34 @@ const firstNameElem = document.getElementById("first-name"),
    answerDOM = document.getElementById("answer");
 
 let allInfoGiven = false;
+let answerFinal;
 
+// Checks if the user is online of offline
+let userWasOffline = false;
+
+window.addEventListener("load", (e) => {
+   if (!navigator.onLine) {
+      voice.innerText = "🎙";
+      alert(
+         "Oh no! You're offline now. So I can't give my best in helping you. Turn on the Internet Connection for better results."
+      );
+      userWasOffline = true;
+   }
+});
+
+window.addEventListener("offline", (e) => {
+   voice.innerText = "🎙";
+   alert(
+      "Oh no! You're offline now. So I can't give my best in helping you. Turn on the Internet Connection for better results."
+   );
+   userWasOffline = true;
+});
+window.addEventListener("online", (e) => {
+   if (userWasOffline) {
+      alert("Back online😀.");
+      location.reload();
+   }
+});
 // Next-btn onclick
 Array.from(nextBtn).forEach((element) => {
    element.addEventListener("click", (e) => {
@@ -58,9 +85,11 @@ Array.from(userName).forEach((presentUserName) => {
 // Speech Recognition
 // window.speechRecognition = window.speechRecognition || window.webkitSpeechRecognition;
 if (!("webkitSpeechRecognition" in window)) {
-   voice.innerHTML = "mic_off"
+   voice.innerHTML = "mic_off";
    voice.addEventListener("click", () => {
-      alert("Speech Recognition is not supported in this browser😭.");
+      alert(
+         "Speech Recognition is not supported in this browser😭. Try using Google Chrome's latest versions instead."
+      );
    });
 } else {
    const recognition = new webkitSpeechRecognition();
@@ -109,9 +138,7 @@ let speech = new SpeechSynthesisUtterance();
 speech.lang = "en-US";
 
 let voices = window.speechSynthesis.getVoices();
-speech.voice = voices.filter(
-   (voice) => voice.name == "Microsoft Zira Desktop - English (United States)"
-)[0];
+speech.voice = voices[1];
 
 // Search Manipulation
 
@@ -132,7 +159,7 @@ function search() {
       "factorial",
       "!",
    ];
-   // Mathematical Problems
+   /// Mathematical Problems
    function removeWordsForSolvingTheProblem() {
       wordsToBeRemoved.forEach((word) => {
          if (searchTextValue.includes(word)) {
@@ -180,21 +207,15 @@ function search() {
       answerFinal = `The factorial of ${n} is ${f}.`;
    }
 
-   // For opening website/app
-   let searchCommandIsOPEN = searchTextValue.includes("open");
-   if (searchCommandIsOPEN) {
-      window.open(
-         "https://" + searchTextValue.split(" ")[1] + ".com",
-         "_blank"
-      );
-      answerFinal = `Opening ${searchTextValue.split(" ")[1]}`;
+   // For checking whether the searchTextValue contains number
+   function searchTextValueContainsNumber() {
+      return /\d/.test(searchTextValue);
    }
 
-   /* ================================ */
-   let searchCommandIsSEARCH = searchTextValue.includes("search");
-   let searchTextValueContainsIN = searchTextValue.includes("in");
-   let SearchTextValueLastWord = searchTextValue.split(" ").pop().toString();
+   // Others
    let searchKeyword = "/search?q=";
+   let SearchTextValueLastWord = searchTextValue.split(" ").pop().toString();
+
    if (
       SearchTextValueLastWord.toLowerCase() == "youtube" ||
       SearchTextValueLastWord.toLowerCase() == "yt"
@@ -208,9 +229,10 @@ function search() {
       searchTextValue.toLowerCase().replace("search", "");
 
    searchMainResult = searchMainResult.replace(" in ", "");
-   if (searchTextValueContainsIN || searchTextValue.toLowerCase)
+
+   if (searchTextValue.includes("in") || searchTextValue.toLowerCase)
       if (
-         searchTextValueContainsIN ||
+         searchTextValue.includes("in") ||
          SearchTextValueLastWord.toLowerCase() == "google" ||
          SearchTextValueLastWord.toLowerCase() == "youtube" ||
          SearchTextValueLastWord.toLowerCase() == "yt"
@@ -223,7 +245,29 @@ function search() {
    searchMainResult = searchMainResult.replace("yt", "");
 
    let searchURI = encodeURIComponent(searchMainResult);
-   if (searchCommandIsSEARCH) {
+
+   /// For opening website/app
+   if (searchTextValue.includes("open")) {
+      searchTextValue = searchTextValue.replace("yt", "youtube");
+      let whatToOPEN = searchTextValue.split(" ")[1];
+      let domain = "";
+
+      if (
+         !(searchTextValue.includes(".") && searchTextValue.slice(-1) != ".")
+      ) {
+         domain = ".com";
+      }
+      window.open("https://" + whatToOPEN + domain, "_blank");
+      answerFinal = `Opening ${whatToOPEN}`;
+   } else if (searchTextValue.includes("search")) {
+      let domain = "";
+
+      if (
+         !(searchTextValue.includes(".") && searchTextValue.slice(-1) != ".")
+      ) {
+         domain = ".com";
+      }
+
       if (
          searchTextValueContainsIN ||
          SearchTextValueLastWord.toLowerCase() == "google" ||
@@ -233,22 +277,20 @@ function search() {
          window.open(
             "https://" +
                SearchTextValueLastWord +
-               ".com" +
+               domain +
                searchKeyword +
                searchURI,
             "_blank"
          );
          answerFinal = `Opening ${SearchTextValueLastWord}`;
       } else {
+         answerFinal = `Opening Google`;
          window.open(
             "https://" + "google" + ".com" + searchKeyword + searchURI,
             "_blank"
          );
-         answerFinal = `Opening Google`;
       }
-   }
-
-   if (searchTextValue.includes("year")) {
+   } else if (searchTextValue.includes("year")) {
       answerFinal = `Year is ${time.presentYear}.`;
    } else if (searchTextValue.includes("month")) {
       answerFinal = `Month is ${time.presentMonth}.`;
@@ -273,27 +315,146 @@ function search() {
       answerFinal = `The seven wonders are ${wonders7.join(", ")}.`;
    } else if (searchTextValue.includes("weather")) {
       getWeather();
+   } else if (searchTextValue.includes("who am i")) {
+      answerFinal = `You are ${localStorage.getItem("First Name")}, my master.`;
    } else if (searchTextValue.includes("my name")) {
       answerFinal = `Your name is ${localStorage.getItem(
          "First Name"
       )} ${localStorage.getItem("Last Name")}.`;
    } else if (searchTextValue.includes("my age")) {
-      let Birth = localStorage.getItem("Date of Birth").split("-");
-      let BirthYear = Birth[0];
-      let BirthMonth = Birth[1];
-      let BirthDate = Birth[2];
+      let Birth = new Date(localStorage.getItem("Date of Birth"));
+      let BirthYear = Birth.getFullYear();
+      let BirthMonth = Birth.getMonth();
+      let BirthDate = Birth.getDate();
 
+      // Age year
       let ageYear = date.getFullYear() - BirthYear;
-      let ageMonth = date.getMonth() - BirthMonth + 1;
-      let ageDate = date.getDate() - BirthDate;
 
-      answerFinal = `Your age is ${ageYear} years ${ageMonth} months ${ageDate} days.`;
-   } else if (searchTextValue.includes("my birth") || searchTextValue.includes("i was born")) {
-      let Birth = localStorage.getItem("Date of Birth").split("-").reverse().join("/");
-      answerFinal = `You were born on ${Birth}.`
-   }
-    else if (searchTextValue.includes("my email")) {
+      // Age month
+      if (date.getMonth() >= BirthMonth) {
+         var ageMonth = date.getMonth() - BirthMonth; //var used for lexical scope
+      } else {
+         ageYear--;
+         var ageMonth = 12 + date.getMonth() - BirthMonth; //var used for lexical scope
+      }
+
+      // Age days
+      if (date.getDate() >= BirthDate) var ageDate = date.getDate() - BirthDate;
+      //var used for lexical scope
+      else {
+         ageMonth--;
+         var ageDate = 31 + date.getDate() - BirthDate; //var used for lexical scope
+
+         if (ageMonth < 0) {
+            ageMonth = 11;
+            ageYear--;
+         }
+      }
+
+      if (ageYear > 0 && ageMonth > 0 && ageDate > 0)
+         answerFinal = `Your age is ${ageYear} years ${ageMonth} months ${ageDate} days.`;
+      else if (ageYear == 0 && ageMonth == 0 && ageDate > 0)
+         ageString = `You're only ${ageDate} days old!`;
+      else if (ageYear > 0 && ageMonth == 0 && ageDate == 0)
+         answerFinal = `You're ${ageYear} years old. <i> Happy Birthday ${localStorage.getItem(
+            "First Name"
+         )}🥳🎉🎂!! <i>`;
+      else if (ageYear > 0 && ageMonth > 0 && ageDate == 0)
+         answerFinal = `You're ${ageYear} years and ${ageMonth} months old.`;
+      else if (ageYear == 0 && ageMonth > 0 && ageDate > 0)
+         answerFinal = `You're ${ageMonth} months and ${ageDate} days old.`;
+      else if (ageYear > 0 && ageMonth == 0 && ageDate > 0)
+         answerFinal = `You're ${ageYear} years, and ${ageDate} days old.`;
+      else if (ageYear == 0 && ageMonth > 0 && ageDate == 0)
+         answerFinal = `You're ${ageMonth} months old.`;
+      else answerFinal = "Welcome to Earth! It's your first day on Earth!";
+
+      //// P.S: I was finding trouble in making this possible so I took help from "https://www.javatpoint.com/calculate-age-using-javascript";
+   } else if (
+      searchTextValue.includes("my birth") ||
+      searchTextValue.includes("i was born") ||
+      searchTextValue.includes("was i born")
+   ) {
+      let Birth = new Date(localStorage.getItem("Date of Birth"));
+      let BirthYear = Birth.getFullYear();
+      let BirthMonth = months[Birth.getMonth()];
+      let BirthDate = Birth.getDate();
+
+      answerFinal = `You were born on ${BirthDate} ${BirthMonth} ${BirthYear}.`;
+   } else if (searchTextValue.includes("can i drive")) {
+      if (
+         date.getFullYear() -
+            localStorage.getItem("Date of Birth").split("-")[0] ==
+         18
+      ) {
+         answerFinal = "Yes, you can drive";
+      } else {
+         answerFinal = "No, you can't drive because you are under-age.";
+      }
+   } else if (searchTextValue.includes("can i vote")) {
+      if (
+         date.getFullYear() -
+            localStorage.getItem("Date of Birth").split("-")[0] ==
+         18
+      ) {
+         answerFinal = "Yes, you can vote";
+      } else {
+         answerFinal = "No, you can't vote because you are under-age.";
+      }
+   } else if (searchTextValue.includes("my email")) {
       answerFinal = `Your email is ${localStorage.getItem("Email")}`;
+   } else if (
+      searchTextValue.includes("call") &&
+      searchTextValueContainsNumber()
+   ) {
+      window.open(`tel:${searchTextValue.split(" ")[0]}`, "_blank");
+   } else if (
+      searchTextValue.includes("call") &&
+      searchTextValue.includes("police")
+   )
+      window.open(`tel:100`, "_blank");
+   else if (
+      searchTextValue.includes("call") &&
+      (searchTextValue.includes("fire brigade") ||
+         searchTextValue.includes("firebrigade"))
+   )
+      window.open(`tel:101`, "_blank");
+   else if (
+      searchTextValue.includes("call") &&
+      searchTextValue.includes("ambulance")
+   )
+      window.open(`tel:102`, "_blank");
+   else if (
+      searchTextValue.includes("how are you") ||
+      searchTextValue.includes("how r you") ||
+      searchTextValue.includes("how r u") ||
+      searchTextValue.includes("how are u")
+   ) {
+      answerFinal = "I am fine! What about you?";
+   } else if (
+      searchTextValue.includes("hi") ||
+      searchTextValue.includes("hello") ||
+      searchTextValue.includes("hey")
+   ) {
+      answerFinal = `Hey ${localStorage.getItem("First Name")}! How are you.`;
+   } else if (
+      searchTextValue.includes("i am fine") &&
+      (searchTextValue.includes("what about you") ||
+         searchTextValue.includes("what about u") ||
+         searchTextValue.includes("how are you") ||
+         searchTextValue.includes("how r u") ||
+         searchTextValue.includes("how are u") ||
+         searchTextValue.includes("how r you"))
+   ) {
+      answerFinal = "Oh, that's great! I'm fine too";
+   } else if (searchTextValue.includes("i am fine")) {
+      answerFinal = "That's great!";
+   } else if (searchTextValue.includes("i am angry")) {
+      answerFinal =
+         "Oh..I am really very upset to know that you are angry😔. How can I help you?";
+   } else if (searchTextValue.includes("who made you")) {
+      answerFinal =
+         "My creator is Nandish Sarkar. His passion is Web Development.";
    } else if (
       searchTextValue.includes("factorial") ||
       searchTextValue.includes("!")
@@ -304,6 +465,11 @@ function search() {
       searchTextValue.includes("square root")
    ) {
       findRoot(2);
+   } else if (
+      searchTextValue.includes("cuberoot") ||
+      searchTextValue.includes("cube root")
+   ) {
+      findRoot(3);
    } else if (searchTextValue.includes("^1/")) {
       findRoot();
    } else if (
@@ -320,12 +486,26 @@ function search() {
       Exponent(3);
    } else if (searchTextValue.includes("^")) {
       Exponent(); //Here no parameter is given because the function will itself find the index in special cases (i.e., when the 'searchTextValue' includes '^')
-   } else {
+   } else if (searchTextValueContainsNumber()) {
       removeWordsForSolvingTheProblem();
       answer = eval(searchTextValue);
 
       if (!isNaN(eval(searchTextValue))) {
          answerFinal = `The answer is ${answer}`;
+      }
+   } else {
+      let userAgreesToGetTheAnswerFromGoogle = window.confirm(
+         "Sorry, I can't answer to your query😖. So would you like to search in Google? Again sorry for the the inconvenience."
+      );
+
+      if (userAgreesToGetTheAnswerFromGoogle) {
+         answerFinal = "Opening Google";
+         window.open(
+            `https://www.google.com/search?q=${encodeURIComponent(
+               searchText.value
+            )}`,
+            "_blank"
+         );
       }
    }
    transcript = "";
@@ -441,7 +621,7 @@ function getWeather() {
 
             // Output
 
-            answerFinal = `Your are currently in ${place}. <br> Description: ${description}. <br> Temperature: ${temp.toFixed(
+            answerFinal = `Your are currently in ${place}. <br> Lat:${latitude} Lon:${longitude} <br> Description: ${description}. <br> Temperature: ${temp.toFixed(
                2
             )}°C(or ${fahrenheit.toFixed(
                2
