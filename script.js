@@ -511,7 +511,6 @@ function search() {
       function makeOperation(operator, term) {
          removeWordsForSolvingTheProblem();
          searchTextValue = searchTextValue.replace(" ", operator);
-         console.log(searchTextValue)
          answerFinal = `The ${term} is ${eval(searchTextValue)}.`;
       }
       if (searchTextValue.includes("divide")) {
