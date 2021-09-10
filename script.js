@@ -79,8 +79,6 @@ if (localStorage.getItem("All Clear")) {
 }
 Array.from(userName).forEach((presentUserName) => {
    presentUserName.innerText = ` ${localStorage.getItem("First Name")}`;
-   console.log(localStorage.getItem("First Name"));
-   console.log(firstNameElem.value);
 });
 
 // Speech Recognition
@@ -146,8 +144,9 @@ speech.voice = voices[1];
 function search() {
    const wordsToBeRemoved = [
       "solve",
-      "what is the value of",
-      "what is",
+      "what is the value of ",
+      "what is the value ",
+      "what is ",
       "value of",
       "square of",
       "squareroot of",
@@ -159,6 +158,26 @@ function search() {
       "factorial of",
       "factorial",
       "!",
+      "divide ",
+      "multiply ",
+      "add ",
+      "subtract ",
+      "divided ",
+      "multiplied ",
+      "added ",
+      "subtracted ",
+      "difference ",
+      "between ",
+      "b2n ",
+      "when ",
+      "is ",
+      "by ",
+      "the ",
+      "of ",
+      "to ",
+      "from ",
+      "and ",
+      "& "
    ];
    /// Mathematical Problems
    function removeWordsForSolvingTheProblem() {
@@ -489,11 +508,28 @@ function search() {
    } else if (searchTextValue.includes("^")) {
       Exponent(); //Here no parameter is given because the function will itself find the index in special cases (i.e., when the 'searchTextValue' includes '^')
    } else if (searchTextValueContainsNumber()) {
-      removeWordsForSolvingTheProblem();
-      answer = eval(searchTextValue);
+      function makeOperation(operator) {
+         removeWordsForSolvingTheProblem();
+         searchTextValue = searchTextValue.replace(" ", operator);
+         console.log(searchTextValue)
+         answerFinal = `The quotient is ${eval(searchTextValue)}.`;
+      }
+      if (searchTextValue.includes("divide")) {
+         makeOperation("/");
+      } else if (searchTextValue.includes("multipl")) {
+         // Here "multipl" is used instead of "multiply" so as to serve both in cases of "multiply" and "multiplied" since in both the letters "m, u, l, t, i, p, l" are present
+         makeOperation("*");
+      } else if (searchTextValue.includes("add")) {
+         makeOperation("+");
+      } else if (searchTextValue.includes("subtract") || searchTextValue.includes("difference")) {
+         makeOperation("-");
+      } else {
+         removeWordsForSolvingTheProblem();
+         answer = eval(searchTextValue);
 
-      if (!isNaN(eval(searchTextValue))) {
-         answerFinal = `The answer is ${answer}`;
+         if (!isNaN(eval(searchTextValue))) {
+            answerFinal = `The answer is ${answer}.`;
+         }
       }
    } else {
       let userAgreesToGetTheAnswerFromGoogle = window.confirm(
@@ -628,7 +664,6 @@ function getWeather() {
             )}°C(or ${fahrenheit.toFixed(
                2
             )}°F). <br> Sunrise: ${sunriseGMT.toLocaleDateString()}, ${sunriseGMT.toLocaleTimeString()}. <br> Sunset: ${sunsetGMT.toLocaleDateString()}, ${sunsetGMT.toLocaleTimeString()}`;
-            console.log(answerFinal);
             // answerFinal = weatherResponse;
             answerDOM.innerHTML = answerFinal;
             speech.text = answerDOM.innerText;
@@ -639,8 +674,4 @@ function getWeather() {
 /* /knowlege */
 
 searchBtn.addEventListener("click", search);
-
 // 626ae011b9f2a70efc5fc4f98b510fe4
-
-console.log("ST", speech.text);
-console.log(answerFinal);
