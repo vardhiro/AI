@@ -177,7 +177,7 @@ function search() {
       "to ",
       "from ",
       "and ",
-      "& "
+      "& ",
    ];
    /// Mathematical Problems
    function removeWordsForSolvingTheProblem() {
@@ -446,19 +446,12 @@ function search() {
    )
       window.open(`tel:102`, "_blank");
    else if (
-      searchTextValue.includes("how are you") ||
-      searchTextValue.includes("how r you") ||
-      searchTextValue.includes("how r u") ||
-      searchTextValue.includes("how are u")
-   ) {
-      answerFinal = "I am fine! What about you?";
-   } else if (
       searchTextValue.includes("hi") ||
       searchTextValue.includes("hello") ||
       searchTextValue.includes("hey")
-   ) {
+   )
       answerFinal = `Hey ${localStorage.getItem("First Name")}! How are you.`;
-   } else if (
+   else if (
       searchTextValue.includes("i am fine") &&
       (searchTextValue.includes("what about you") ||
          searchTextValue.includes("what about u") ||
@@ -466,17 +459,40 @@ function search() {
          searchTextValue.includes("how r u") ||
          searchTextValue.includes("how are u") ||
          searchTextValue.includes("how r you"))
-   ) {
+   )
       answerFinal = "Oh, that's great! I'm fine too";
-   } else if (searchTextValue.includes("i am fine")) {
+   else if (
+      searchTextValue.includes("how are you") ||
+      searchTextValue.includes("how r you") ||
+      searchTextValue.includes("how r u") ||
+      searchTextValue.includes("how are u")
+   )
+      answerFinal = "I am fine! What about you?";
+   else if (searchTextValue.includes("i am fine"))
       answerFinal = "That's great!";
-   } else if (searchTextValue.includes("i am angry")) {
+   else if (searchTextValue.includes("i am angry"))
       answerFinal =
          "Oh..I am really very upset to know that you are angry😔. How can I help you?";
-   } else if (searchTextValue.includes("who made you")) {
+   else if (searchTextValue.includes("i am upset"))
+      answerFinal =
+         "Oh..I am very sorry to hear that😔. How can I make your mood better😉?";
+   else if (searchTextValue.includes("who made you"))
       answerFinal =
          "My creator is Nandish Sarkar. His passion is Web Development.";
-   } else if (
+   else if (
+      searchTextValue.includes("your age") ||
+      searchTextValue.includes("ur age")
+   )
+      answerFinal = `Nandish got the idea of making me in August and then he started the work after some days and after all I was officially launched on 9th September 2021. <br> So now it's your turn to judge my correct age.`;
+   else if (
+      searchTextValue.includes("your birth") ||
+      searchTextValue.includes("you born")
+   )
+      answerFinal = `Nandish got the idea of making me in August and then he started the work after some days and after all I was officially launched on 9th September 2021. <br> So now it's your turn to judge my correct birthday.`;
+   else if (searchTextValue.includes("how to do potty"))
+      answerFinal =
+         "Just go to the toilet and you will your self find the answer😉. Any more query?";
+   else if (
       searchTextValue.includes("factorial") ||
       searchTextValue.includes("!")
    ) {
@@ -520,7 +536,10 @@ function search() {
          makeOperation("*", "product");
       } else if (searchTextValue.includes("add")) {
          makeOperation("+", "sum");
-      } else if (searchTextValue.includes("subtract") || searchTextValue.includes("difference")) {
+      } else if (
+         searchTextValue.includes("subtract") ||
+         searchTextValue.includes("difference")
+      ) {
          makeOperation("-", "difference");
       } else {
          removeWordsForSolvingTheProblem();
@@ -547,7 +566,7 @@ function search() {
    }
    transcript = "";
    if (answerFinal) {
-      answerFinal = String(answerFinal).replace("NaN", "invalid number")
+      answerFinal = String(answerFinal).replace("NaN", "invalid number");
       answerDOM.innerHTML = answerFinal;
    }
    speech.text = answerDOM.innerText;
@@ -585,7 +604,14 @@ let months = [
 let timeRange;
 let hour = date.getHours();
 
-hour > 12 ? ((hour -= 12), (timeRange = "p.m.")) : (timeRange = "a.m.");
+if (hour > 12) {
+   timeRange = "p.m.";
+   hour -= 12;
+} else if (hour == 12) {
+   timeRange = "p.m.";
+} else {
+   timeRange = "a.m.";
+}
 
 let time = {
    presentYear: date.getFullYear(),
@@ -598,7 +624,7 @@ let time = {
    presentHour: hour,
    presentMinute: date.getMinutes(),
    presentSecond: date.getSeconds(),
-   presentTime: hour + " " + date.getMinutes() + " " + timeRange,
+   presentTime: hour + ":" + date.getMinutes() + " " + timeRange,
 };
 
 // 7 wonders of the world
@@ -674,4 +700,18 @@ function getWeather() {
 /* /knowlege */
 
 searchBtn.addEventListener("click", search);
+
+const greetings = ["Good morning", "Good noon", "Good afternoon", "Good evening"];
+let greeting;
+if (timeRange === "a.m.")
+greeting = greetings[0];
+else if (time.presentHour === 12)
+greeting = greetings[1];
+else if (time.presentHour > 12 && time.presentHour > 4)
+greeting = greetings[2];
+else
+greeting = greetings[3];
+
+
+document.title = `${greeting} ${localStorage.getItem("First Name")}!`;
 // 626ae011b9f2a70efc5fc4f98b510fe4
