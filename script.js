@@ -66,14 +66,15 @@ continueBtn.addEventListener("click", () => {
    localStorage.setItem("All Clear", true);
 });
 
-let searchModeIsOn = false;
 if (localStorage.getItem("All Info Given")) {
    Array.from(temp).forEach((temp) => {
       temp.remove();
-      searchModeIsOn = true;
    });
 }
+
+let searchModeIsOn = false;
 if (localStorage.getItem("All Clear")) {
+   searchModeIsOn = true;
    pageReady.remove();
 }
 Array.from(userName).forEach((presentUserName) => {

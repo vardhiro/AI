@@ -147,7 +147,7 @@ em {
 }
 
 .page-ask {
-   background: linear-gradient(180deg, #ffff89aa, #5c25a5aa), url("https://source.unsplash.com/daily?technology");
+   background: linear-gradient(to left, #4CB8C4AA, #3CD3ADAA), url("https://source.unsplash.com/daily?technology");
    background-size: cover;
    mix-blend-mode: multiply;
 
@@ -193,7 +193,5 @@ em {
       color: #222;
       font-weight: 600;
       font-family: sans-serif;
-      // border-radius: 10px;
-      // padding: 1em;
    }
 }
