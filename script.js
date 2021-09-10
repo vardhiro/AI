@@ -9,6 +9,7 @@ const firstNameElem = document.getElementById("first-name"),
    pageReady = document.getElementById("page-ready"),
    userName = document.getElementsByClassName("name"),
    continueBtn = document.getElementById("continue-btn"),
+   greetingDOM = document.getElementById("greeting"),
    searchText = document.getElementById("search-text"),
    instructions = document.getElementById("instructions"),
    voice = document.getElementById("voice-search"),
@@ -712,6 +713,6 @@ greeting = greetings[2];
 else
 greeting = greetings[3];
 
-
-document.title = `${greeting} ${localStorage.getItem("First Name")}!`;
+greetingDOM.innerText = greeting;
+document.title = `AI - ${greeting} ${localStorage.getItem("First Name")}!`;
 // 626ae011b9f2a70efc5fc4f98b510fe4
