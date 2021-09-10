@@ -508,21 +508,21 @@ function search() {
    } else if (searchTextValue.includes("^")) {
       Exponent(); //Here no parameter is given because the function will itself find the index in special cases (i.e., when the 'searchTextValue' includes '^')
    } else if (searchTextValueContainsNumber()) {
-      function makeOperation(operator) {
+      function makeOperation(operator, term) {
          removeWordsForSolvingTheProblem();
          searchTextValue = searchTextValue.replace(" ", operator);
          console.log(searchTextValue)
-         answerFinal = `The quotient is ${eval(searchTextValue)}.`;
+         answerFinal = `The ${term} is ${eval(searchTextValue)}.`;
       }
       if (searchTextValue.includes("divide")) {
-         makeOperation("/");
+         makeOperation("/", "quotient");
       } else if (searchTextValue.includes("multipl")) {
          // Here "multipl" is used instead of "multiply" so as to serve both in cases of "multiply" and "multiplied" since in both the letters "m, u, l, t, i, p, l" are present
-         makeOperation("*");
+         makeOperation("*", "product");
       } else if (searchTextValue.includes("add")) {
-         makeOperation("+");
+         makeOperation("+", "sum");
       } else if (searchTextValue.includes("subtract") || searchTextValue.includes("difference")) {
-         makeOperation("-");
+         makeOperation("-", "difference");
       } else {
          removeWordsForSolvingTheProblem();
          answer = eval(searchTextValue);
@@ -548,6 +548,7 @@ function search() {
    }
    transcript = "";
    if (answerFinal) {
+      answerFinal = String(answerFinal).replace("NaN", "invalid number")
       answerDOM.innerHTML = answerFinal;
    }
    speech.text = answerDOM.innerText;
