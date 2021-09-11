@@ -702,7 +702,7 @@ function getWeather() {
 
 searchBtn.addEventListener("click", search);
 searchBtn.addEventListener("click", e => {
-   e.stopPropagation();
+   e.preventDefault();
 });
 
 const greetings = ["Good morning", "Good noon", "Good afternoon", "Good evening"];
