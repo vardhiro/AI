@@ -701,6 +701,9 @@ function getWeather() {
 /* /knowlege */
 
 searchBtn.addEventListener("click", search);
+searchBtn.addEventListener("click", e => {
+   e.stopPropagation();
+});
 
 const greetings = ["Good morning", "Good noon", "Good afternoon", "Good evening"];
 let greeting;
