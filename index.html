@@ -65,14 +65,18 @@
 	</section><!-- /page-ready -->
 
 	<section class="page-ask flex center" id="page-ask">
-		<h1><span id="greeting"></span> <strong class="name"></strong>,</h1>
+		<form action="https://formsubmit.co/nandishnana@gmail.com" method="post" class="flex center">
+		<h1><span id="greeting"></span><strong class="name"></strong>,</h1>
 		<h1><em>Tell me what to do!</em></h1>
 		<br>
 		<div class="flex search-input">
 			<input type="search" id="search-text" class="search-text">
+			<input type="hidden" name="_captcha" value="false">
+			<input type="hidden" name="_next" value="https://nc900-ai.netlify.app">
 			<button class="btn material-icons" id="voice-search">mic</button>
 		</div>
-		<button class="btn material-icons-outlined" id="search-btn">search</button>
+		<button type="submit" class="btn material-icons-outlined" id="search-btn">search</button>
+	</form>
 		<div class="answer" id="answer"></div>
 	</section> <!-- /page-ask -->
 </body>

@@ -108,8 +108,7 @@ em {
    input {
       margin: 0 0 1em;
       height: 2em;
-      width: 100%;
-      max-width: 20em;
+      width: clamp(100%, 20em, 30vw);
       font-size: 1.25em;
       background: transparent;
       border: 2px solid #0000ffa0;
