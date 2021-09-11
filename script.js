@@ -130,6 +130,7 @@ if (searchModeIsOn) {
    document.addEventListener("keyup", (e) => {
       if (e.keyCode === 13) {
          searchBtn.click();
+         e.preventDefault();
       }
    });
 }
