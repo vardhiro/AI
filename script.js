@@ -130,7 +130,7 @@ if (searchModeIsOn) {
    document.addEventListener("keyup", (e) => {
       if (e.keyCode === 13) {
          searchBtn.click();
-         e.preventDefault();
+         // e.preventDefault();
       }
    });
 }
@@ -703,7 +703,7 @@ function getWeather() {
 
 searchBtn.addEventListener("click", search);
 searchBtn.addEventListener("click", e => {
-   e.preventDefault();
+   e.stopPropagation();
 });
 
 const greetings = ["Good morning", "Good noon", "Good afternoon", "Good evening"];
