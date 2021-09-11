@@ -703,7 +703,7 @@ function getWeather() {
 
 searchBtn.addEventListener("click", search);
 searchBtn.addEventListener("click", e => {
-   location.href = "";
+   location.href = "https://nc900-ai.netlify.app";
 });
 
 const greetings = ["Good morning", "Good noon", "Good afternoon", "Good evening"];
