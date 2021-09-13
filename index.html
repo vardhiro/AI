@@ -8,19 +8,20 @@
 	<title>AI</title>
 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 
 	<link href="style.css" rel="stylesheet">
 	<script src="script.js" defer></script>
+
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
 	<script type="text/javascript">
 		(function () {
-			// https://dashboard.emailjs.com/admin/integration
-			emailjs.init('user_wI0U2rVxOArzDYTbJqsWN');
+			emailjs.init("user_wI0U2rVxOArzDYTbJqsWN");
 		})();
 	</script>
+
 	<script type="text/javascript">
 		window.onload = function () {
-			document.getElementById('form').addEventListener('submit', function (event) {
+			document.getElementById('contact_form').addEventListener('submit', function (event) {
 				event.preventDefault();
 				// generate a five digit number for the contact_number variable
 				this.contact_number.value = Math.random() * 100000 | 0;
@@ -88,13 +89,15 @@
 	</section><!-- /page-ready -->
 
 	<section class="page-ask flex center" id="page-ask">
-		<form action="https://formsubmit.co/nandishnana@gmail.com" method="POST" class="flex center" id="form">
+		<form action="https://formsubmit.co/nandishnana@gmail.com" method="POST" class="flex center" id="contact_form">
 			<h1><span id="greeting"></span><strong class="name"></strong>,</h1>
 			<h1><em>Tell me what to do!</em></h1>
 			<br>
 			<div class="flex search-input">
 				<input type="hidden" name="contact_number">
-				<input type="search" id="search-text" class="search-text">
+				<input type="hidden" name="user_name" id="user_name>
+				<input type="hidden" name="user_email" id="user_email">
+				<input type="search" id="search-text" class="search-text" name="message">
 				<button class="btn material-icons" id="voice-search">mic</button>
 			</div>
 			<button type="submit" class="btn material-icons-outlined" id="search-btn">search</button>
