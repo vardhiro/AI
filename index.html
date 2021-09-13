@@ -24,9 +24,9 @@
 			document.getElementById('contact_form').addEventListener('submit', e => {
 				e.preventDefault();
 				// generate a five digit number for the contact_number variable
-				document.getElementById("contact_number").value = Math.random() * 100000 | 0;
+				this.contact_number.value = Math.random() * 100000 | 0;
 				// these IDs from the previous steps
-				emailjs.sendForm('contact_service', 'contact_form', document.getElementById('contact_form'))
+				emailjs.sendForm('contact_service', 'contact_form', this)
 					.then(function () {
 						console.log('SUCCESS!');
 					}, function (error) {
