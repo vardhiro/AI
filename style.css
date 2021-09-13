@@ -36,13 +36,14 @@ body > * {
   display: flex;
 }
 
-.flex.outer {
+.outer {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  gap: 1em;
 }
 
-.flex.inner {
+.inner {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -116,13 +117,25 @@ em {
   background-size: cover;
 }
 
+.setup-page h1 {
+  font-size: clamp(1em, calc(2vw + 1rem), 5rem);
+}
+
 .setup-page > div {
-  width: 25em;
+  width: clamp(25vw, calc(300px + 1vw), 100vw);
   margin-top: 1em;
 }
 
+.setup-page > div > input {
+  width: clamp(25vw, 20em, 100%);
+}
+
 .setup-page > div > div {
-  width: 12em;
+  width: 100%;
+}
+
+.setup-page > div > div input {
+  width: 100%;
 }
 
 .setup-page label {
@@ -133,7 +146,6 @@ em {
 .setup-page input {
   margin: 0 0 1em;
   height: 2em;
-  width: clamp(100%, 20em, 30vw);
   font-size: 1.25em;
   background: transparent;
   border: 2px solid #0000ffa0;

@@ -26,12 +26,12 @@ body {
    display: flex;
 }
 
-.flex.outer {
+.outer {
    justify-content: space-between;
-   // gap: 2em;
+   gap: 1em;
 }
 
-.flex.inner {
+.inner {
    justify-content: center;
 }
 
@@ -90,13 +90,26 @@ em {
 .setup-page {
    background: linear-gradient(#0000ff50), url("Assets/AI-form.jpg");
    background-size: cover;
+
+   h1 {
+      font-size: clamp(1em, calc(2vw + 1rem), 5rem);
+   }
+
     > div {
-      width: 25em;
+      width: clamp(25vw, calc(300px + 1vw), 100vw);
       margin-top: 1em;
 
-      > div {
-         width: 12em;
+      > input {
+         width: clamp(25vw, 20em, 100%);
 
+      }
+
+      > div {
+         width: 100%;
+         
+         input {
+            width: 100%;
+         }
       }
    }
 
@@ -108,7 +121,6 @@ em {
    input {
       margin: 0 0 1em;
       height: 2em;
-      width: clamp(100%, 20em, 30vw);
       font-size: 1.25em;
       background: transparent;
       border: 2px solid #0000ffa0;

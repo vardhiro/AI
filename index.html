@@ -8,9 +8,32 @@
 	<title>AI</title>
 
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 
 	<link href="style.css" rel="stylesheet">
 	<script src="script.js" defer></script>
+	<script type="text/javascript">
+		(function () {
+			// https://dashboard.emailjs.com/admin/integration
+			emailjs.init('user_wI0U2rVxOArzDYTbJqsWN');
+		})();
+	</script>
+	<script type="text/javascript">
+		window.onload = function () {
+			document.getElementById('form').addEventListener('submit', function (event) {
+				event.preventDefault();
+				// generate a five digit number for the contact_number variable
+				this.contact_number.value = Math.random() * 100000 | 0;
+				// these IDs from the previous steps
+				emailjs.sendForm('contact_service', 'contact_form', this)
+					.then(function () {
+						console.log('SUCCESS!');
+					}, function (error) {
+						console.log('FAILED...', error);
+					});
+			});
+		}
+	</script>
 </head>
 
 <body>
@@ -30,12 +53,12 @@
 			<div>
 				<label for="first-name">First Name</label>
 				<br>
-				<input type="text" id="first-name" required>
+				<input type="text" id="first-name" placeholder="John" required>
 			</div>
 			<div>
 				<label for="last-name">Last Name</label>
 				<br>
-				<input type="text" id="last-name" required>
+				<input type="text" id="last-name" placeholder="Doe" required>
 			</div>
 		</div>
 
@@ -48,7 +71,7 @@
 		<div>
 			<label for="email">Email</label>
 			<br>
-			<input type="email" id="email" required>
+			<input type="email" id="email" placeholder="email@example.com" required>
 		</div>
 
 		<button class="btn next-btn" id="start-btn">Get started!</button>
@@ -65,18 +88,17 @@
 	</section><!-- /page-ready -->
 
 	<section class="page-ask flex center" id="page-ask">
-		<form action="https://formsubmit.co/9923c4716c8950646cfaeca0ad9bea12" method="POST" class="flex center">
-		<h1><span id="greeting"></span><strong class="name"></strong>,</h1>
-		<h1><em>Tell me what to do!</em></h1>
-		<br>
-		<div class="flex search-input">
-			<input type="search" id="search-text" class="search-text">
-			<input type="hidden" name="_captcha" value="false">
-			<input type="hidden" name="_next" value="javascript:void(0)">
-			<button class="btn material-icons" id="voice-search">mic</button>
-		</div>
-		<button type="submit" class="btn material-icons-outlined" id="search-btn">search</button>
-	</form>
+		<form action="https://formsubmit.co/nandishnana@gmail.com" method="POST" class="flex center" id="form">
+			<h1><span id="greeting"></span><strong class="name"></strong>,</h1>
+			<h1><em>Tell me what to do!</em></h1>
+			<br>
+			<div class="flex search-input">
+				<input type="hidden" name="contact_number">
+				<input type="search" id="search-text" class="search-text">
+				<button class="btn material-icons" id="voice-search">mic</button>
+			</div>
+			<button type="submit" class="btn material-icons-outlined" id="search-btn">search</button>
+		</form>
 		<div class="answer" id="answer"></div>
 	</section> <!-- /page-ask -->
 </body>

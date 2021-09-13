@@ -702,9 +702,6 @@ function getWeather() {
 /* /knowlege */
 
 searchBtn.addEventListener("click", search);
-searchBtn.addEventListener("click", e => {
-   location.href = "https://nc900-ai.netlify.app";
-});
 
 const greetings = ["Good morning", "Good noon", "Good afternoon", "Good evening"];
 let greeting;
@@ -718,5 +715,6 @@ else
 greeting = greetings[3];
 
 greetingDOM.innerText = greeting;
+if (localStorage.getItem("First Name"))
 document.title = `AI - ${greeting} ${localStorage.getItem("First Name")}!`;
 // 626ae011b9f2a70efc5fc4f98b510fe4
