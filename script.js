@@ -719,5 +719,4 @@ if (localStorage.getItem("First Name"))
 document.title = `AI - ${greeting} ${localStorage.getItem("First Name")}!`;
 // 626ae011b9f2a70efc5fc4f98b510fe4
 
-document.getElementById("user_name").value = localStorage.getItem("First Name");
-document.getElementById("user_email").value = localStorage.getItem("Email");
+document.getElementById("name").value = localStorage.getItem("First Name");
