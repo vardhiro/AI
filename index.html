@@ -21,7 +21,7 @@
 
 	<script type="text/javascript">
 		window.onload = function () {
-			document.getElementById('contact_form').addEventListener('submit', e => {
+			document.getElementById('contact-form').addEventListener('submit', e => {
 				e.preventDefault();
 				// generate a five digit number for the contact_number variable
 				this.contact_number.value = Math.random() * 100000 | 0;
@@ -89,7 +89,7 @@
 	</section><!-- /page-ready -->
 
 	<section class="page-ask flex center" id="page-ask">
-		<form action="https://formsubmit.co/nandishnana@gmail.com" method="POST" class="flex center" id="contact_form">
+		<form class="flex center" id="contact-form">
 			<h1><span id="greeting"></span><strong class="name"></strong>,</h1>
 			<h1><em>Tell me what to do!</em></h1>
 			<br>
