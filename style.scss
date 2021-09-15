@@ -54,6 +54,21 @@ body {
    }
 }
 
+.round-btn {
+   position: relative;
+   border-radius: 50%;
+   cursor: pointer;
+   padding: .2em;
+   transition: transform 1s, background 1s linear;
+   
+   &:hover,
+   &:focus,
+   &.round-btn--active {
+      background: #d1d1d1;
+      transform: rotate(90deg);
+   }
+}
+
 .center {
    justify-content: center;
    align-items: center;
@@ -161,6 +176,7 @@ em {
 }
 
 .page-ask {
+   position: relative;
    background: linear-gradient(to left, #4CB8C4AA, #3CD3ADAA), url("https://source.unsplash.com/daily?technology") center center;
    background-size: cover;
    mix-blend-mode: multiply;
@@ -210,6 +226,42 @@ em {
       color: #222;
       font-weight: 600;
       font-family: sans-serif;
+   }
 
+   nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      height: 10vh;
+      width: 100vw;
+
+      display: grid;
+      grid-template-columns: 1fr 8fr 1fr;
+      grid-template-areas: "profile links settings";
+
+      // background: rgba(#000, .3);
+
+      .settings {
+         grid-area: settings;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+
+         display: none; // will change in developing time
+         
+         img {
+            height: 80%;
+            aspect-ratio: 1 / 1;
+         }
+      }
+
+      .links {
+         grid-area: links;
+      }
+
+      .profile {
+         grid-area: profile;
+      }
    }
 }

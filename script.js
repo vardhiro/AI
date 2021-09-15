@@ -14,7 +14,8 @@ const firstNameElem = document.getElementById("first-name"),
    instructions = document.getElementById("instructions"),
    voice = document.getElementById("voice-search"),
    searchBtn = document.getElementById("search-btn"),
-   answerDOM = document.getElementById("answer");
+   answerDOM = document.getElementById("answer"),
+   settingsBtn = document.getElementById("settings-btn");
 
 let allInfoGiven = false;
 let answerFinal;
@@ -125,7 +126,26 @@ if (!("webkitSpeechRecognition" in window)) {
 }
 
 // Response
+// Key shortcuts
 
+{
+let counter = 1; 
+window.addEventListener("keydown", (e) => {
+   if (e.shiftKey && e.keyCode == "83") {
+      settingsBtn.click();
+   }
+});
+settingsBtn.addEventListener("click", (e) => {
+   counter++;
+   if (counter % 2 === 0) {
+      settingsBtn.classList.add("round-btn--active"); 
+   }
+   else {
+      settingsBtn.classList.remove("round-btn--active");
+   }
+})
+
+}
 // Text to speech
 let speech = new SpeechSynthesisUtterance();
 speech.lang = "en-US";
@@ -484,10 +504,8 @@ function search() {
    )
       answerFinal = `Nandish got the idea of making me in August and then he started the work after some days and after all I was officially launched on 9th September 2021. <br> So now it's your turn to judge my correct birthday.`;
    else if (searchTextValue.includes("u do")) {
-   answerFinal = 
-   `<h2 class="center-txt"> I can do many thing, like: </h2> <ul> <li>Open any website.</li> <li>Search on other website(<b>exceptions are there.</b>)</li> <li>Help you call somebody(e.g. Call police).</li> <li>Chat with you.</li> <li>Tell the time.</li> <li>Perform math calculations(till now, only simple operations).</li> <li>Tell the weather</li> <li>etc.</li> </ul>`;
-   }
-   else if (searchTextValue.includes("how to do potty"))
+      answerFinal = `<h2 class="center-txt"> I can do many thing, like: </h2> <ul> <li>Open any website.</li> <li>Search on other website(<b>exceptions are there.</b>)</li> <li>Help you call somebody(e.g. Call police).</li> <li>Chat with you.</li> <li>Tell the time.</li> <li>Perform math calculations(till now, only simple operations).</li> <li>Tell the weather</li> <li>etc.</li> </ul>`;
+   } else if (searchTextValue.includes("how to do potty"))
       answerFinal =
          "Just go to the toilet and you will your self find the answer😉. Any more query?";
    else if (
@@ -519,9 +537,9 @@ function search() {
       searchTextValue.includes("^ 3")
    ) {
       Exponent(3);
-   } else if (searchTextValue.includes("^"))
-      Exponent(); //Here no parameter is given because the function will itself find the index in special cases (i.e., when the 'searchTextValue' includes '^')
-    else if (searchTextValueContainsNumber()) {
+   } else if (searchTextValue.includes("^")) Exponent();
+   //Here no parameter is given because the function will itself find the index in special cases (i.e., when the 'searchTextValue' includes '^')
+   else if (searchTextValueContainsNumber()) {
       function makeOperation(operator, term) {
          removeWordsForSolvingTheProblem();
          searchTextValue = searchTextValue.replace(" ", operator);
@@ -699,20 +717,21 @@ function getWeather() {
 
 searchBtn.addEventListener("click", search);
 
-const greetings = ["Good morning", "Good noon", "Good afternoon", "Good evening"];
+const greetings = [
+   "Good morning",
+   "Good noon",
+   "Good afternoon",
+   "Good evening",
+];
 let greeting;
-if (timeRange === "a.m.")
-greeting = greetings[0];
-else if (time.presentHour === 12)
-greeting = greetings[1];
-else if (time.presentHour > 12 && time.presentHour > 4)
-greeting = greetings[2];
-else
-greeting = greetings[3];
+if (timeRange === "a.m.") greeting = greetings[0];
+else if (time.presentHour === 12) greeting = greetings[1];
+else if (time.presentHour > 12 && time.presentHour > 4) greeting = greetings[2];
+else greeting = greetings[3];
 
 greetingDOM.innerText = greeting;
 if (localStorage.getItem("First Name"))
-document.title = `AI - ${greeting} ${localStorage.getItem("First Name")}!`;
+   document.title = `AI - ${greeting} ${localStorage.getItem("First Name")}!`;
 // 626ae011b9f2a70efc5fc4f98b510fe4
 
 document.getElementById("name").value = localStorage.getItem("First Name");
