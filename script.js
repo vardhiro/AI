@@ -126,14 +126,6 @@ if (!("webkitSpeechRecognition" in window)) {
 
 // Response
 
-if (searchModeIsOn) {
-   document.addEventListener("keyup", (e) => {
-      if (e.keyCode === 13) {
-         searchBtn.click();
-         // e.preventDefault();
-      }
-   });
-}
 // Text to speech
 let speech = new SpeechSynthesisUtterance();
 speech.lang = "en-US";
@@ -493,7 +485,7 @@ function search() {
       answerFinal = `Nandish got the idea of making me in August and then he started the work after some days and after all I was officially launched on 9th September 2021. <br> So now it's your turn to judge my correct birthday.`;
    else if (searchTextValue.includes("u do")) {
    answerFinal = 
-   "I can do many thing, like:<br> <ul> <li>Open any website.</li> <li>Search on other website(<b>exceptions are there.</b>)</li> <li>Help you call somebody(e.g. Call police).</li> <li>Chat with you.</li> <li>Tell the time.</li> <li>Perform math calculations(till now, only simple operations).</li> <li>Tell the weather</li> <li>etc.</li> </ul>";
+   `<h2 class="center-txt"> I can do many thing, like: </h2> <ul> <li>Open any website.</li> <li>Search on other website(<b>exceptions are there.</b>)</li> <li>Help you call somebody(e.g. Call police).</li> <li>Chat with you.</li> <li>Tell the time.</li> <li>Perform math calculations(till now, only simple operations).</li> <li>Tell the weather</li> <li>etc.</li> </ul>`;
    }
    else if (searchTextValue.includes("how to do potty"))
       answerFinal =
