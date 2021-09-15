@@ -491,7 +491,7 @@ function search() {
       searchTextValue.includes("you born")
    )
       answerFinal = `Nandish got the idea of making me in August and then he started the work after some days and after all I was officially launched on 9th September 2021. <br> So now it's your turn to judge my correct birthday.`;
-   else if (searchTextValue.includes("you do")) {
+   else if (searchTextValue.includes("u do")) {
    answerFinal = 
    "I can do many thing, like:<br> <ul> <li>Open any website.</li> <li>Search on other website(<b>exceptions are there.</b>)</li> <li>Help you call somebody(e.g. Call police).</li> <li>Chat with you.</li> <li>Tell the time.</li> <li>Perform math calculations(till now, only simple operations).</li> <li>Tell the weather</li> <li>etc.</li> </ul>";
    }
