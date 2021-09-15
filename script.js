@@ -491,6 +491,10 @@ function search() {
       searchTextValue.includes("you born")
    )
       answerFinal = `Nandish got the idea of making me in August and then he started the work after some days and after all I was officially launched on 9th September 2021. <br> So now it's your turn to judge my correct birthday.`;
+   else if (searchTextValue.includes("you do")) {
+   answerFinal = 
+   "I can do many thing, like:<br> <ul> <li>Open any website.</li> <li>Search on other website(<b>exceptions are there.</b>)</li> <li>Help you call somebody(e.g. Call police).</li> <li>Chat with you.</li> <li>Tell the time.</li> <li>Perform math calculations(till now, only simple operations).</li> <li>Tell the weather</li> <li>etc.</li> </ul>";
+   }
    else if (searchTextValue.includes("how to do potty"))
       answerFinal =
          "Just go to the toilet and you will your self find the answer😉. Any more query?";
@@ -523,9 +527,9 @@ function search() {
       searchTextValue.includes("^ 3")
    ) {
       Exponent(3);
-   } else if (searchTextValue.includes("^")) {
+   } else if (searchTextValue.includes("^"))
       Exponent(); //Here no parameter is given because the function will itself find the index in special cases (i.e., when the 'searchTextValue' includes '^')
-   } else if (searchTextValueContainsNumber()) {
+    else if (searchTextValueContainsNumber()) {
       function makeOperation(operator, term) {
          removeWordsForSolvingTheProblem();
          searchTextValue = searchTextValue.replace(" ", operator);
@@ -553,7 +557,7 @@ function search() {
       }
    } else {
       let userAgreesToGetTheAnswerFromGoogle = window.confirm(
-         "Sorry, I can't answer to your query😖. So would you like to search in Google? Again sorry for the the inconvenience."
+         "Sorry, I can't answer to your query. So would you like to search in Google?."
       );
 
       if (userAgreesToGetTheAnswerFromGoogle) {
