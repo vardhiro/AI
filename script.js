@@ -129,22 +129,20 @@ if (!("webkitSpeechRecognition" in window)) {
 // Key shortcuts
 
 {
-let counter = 1; 
-window.addEventListener("keydown", (e) => {
-   if (e.shiftKey && e.keyCode == "83") {
-      settingsBtn.click();
-   }
-});
-settingsBtn.addEventListener("click", (e) => {
-   counter++;
-   if (counter % 2 === 0) {
-      settingsBtn.classList.add("round-btn--active"); 
-   }
-   else {
-      settingsBtn.classList.remove("round-btn--active");
-   }
-})
-
+   let counter = 1;
+   window.addEventListener("keydown", (e) => {
+      if (e.shiftKey && e.keyCode == "83") {
+         settingsBtn.click();
+      }
+   });
+   settingsBtn.addEventListener("click", (e) => {
+      counter++;
+      if (counter % 2 === 0) {
+         settingsBtn.classList.add("round-btn--active");
+      } else {
+         settingsBtn.classList.remove("round-btn--active");
+      }
+   });
 }
 // Text to speech
 let speech = new SpeechSynthesisUtterance();
@@ -251,38 +249,41 @@ function search() {
    let SearchTextValueLastWord = searchTextValue.split(" ").pop().toString();
 
    if (
-      SearchTextValueLastWord.toLowerCase() == "youtube" ||
-      SearchTextValueLastWord.toLowerCase() == "yt"
+      SearchTextValueLastWord == "youtube" ||
+      SearchTextValueLastWord == "yt" ||
+      SearchTextValueLastWord == "y t"
    ) {
       searchKeyword = "/results?search_query=";
       SearchTextValueLastWord = "youtube";
    }
 
    let searchMainResult =
-      searchTextValue.toLowerCase().replace("search ", "") ||
-      searchTextValue.toLowerCase().replace("search", "");
+      searchTextValue.replace("search ", "") ||
+      searchTextValue.replace("search", "");
 
    searchMainResult = searchMainResult.replace(" in ", "");
 
-   if (searchTextValue.includes("in") || searchTextValue.toLowerCase)
+   if (searchTextValue.includes("in"))
       if (
          searchTextValue.includes("in") ||
-         SearchTextValueLastWord.toLowerCase() == "google" ||
-         SearchTextValueLastWord.toLowerCase() == "youtube" ||
-         SearchTextValueLastWord.toLowerCase() == "yt"
+         SearchTextValueLastWord == "google" ||
+         SearchTextValueLastWord == "youtube" ||
+         SearchTextValueLastWord == "yt"
       ) {
          searchMainResult = searchMainResult.replace(
             SearchTextValueLastWord,
             ""
          );
       }
-   searchMainResult = searchMainResult.replace("yt", "");
+   searchMainResult = searchMainResult.replace("yt", "").replace("y t", "");
 
    let searchURI = encodeURIComponent(searchMainResult);
 
    /// For opening website/app
    if (searchTextValue.includes("open")) {
-      searchTextValue = searchTextValue.replace("yt", "youtube");
+      searchTextValue = searchTextValue
+         .replace("yt", "youtube")
+         .replace("y t", "youtube");
       let whatToOPEN = searchTextValue.split(" ")[1];
       let domain = "";
 
@@ -303,10 +304,11 @@ function search() {
       }
 
       if (
-         searchTextValueContainsIN ||
-         SearchTextValueLastWord.toLowerCase() == "google" ||
-         SearchTextValueLastWord.toLowerCase() == "youtube" ||
-         SearchTextValueLastWord.toLowerCase() == "yt"
+         searchTextValue.includes("in") ||
+         SearchTextValueLastWord == "google" ||
+         SearchTextValueLastWord == "youtube" ||
+         SearchTextValueLastWord == "yt" ||
+         SearchTextValueLastWord == "y t"
       ) {
          window.open(
             "https://" +
@@ -490,9 +492,18 @@ function search() {
    else if (searchTextValue.includes("i am upset"))
       answerFinal =
          "Oh..I am very sorry to hear that😔. How can I make your mood better😉?";
-   else if (searchTextValue.includes("who made you"))
+   else if (searchTextValue.includes("i am tired"))
       answerFinal =
-         "My creator is Nandish Sarkar. His passion is Web Development.";
+         "Oh..You should take some rest, tell me how can I make you feel energetic😉?";
+         else if (searchTextValue.includes("who are you") || searchTextValue.includes("who r u") || searchTextValue.includes("who r you"))
+         answerFinal = "I am an AI made by Nandish Sarkar (AKA NanCoder900)."
+   else if (
+      searchTextValue.includes("who made you") ||
+      searchTextValue.includes("ur creator") ||
+      searchTextValue.includes("ur inventor")
+   )
+      answerFinal =
+         "My creator is Nandish Sarkar (AKA NanCoder900). His passion is Web Development.";
    else if (
       searchTextValue.includes("your age") ||
       searchTextValue.includes("ur age")
@@ -508,7 +519,35 @@ function search() {
    } else if (searchTextValue.includes("how to do potty"))
       answerFinal =
          "Just go to the toilet and you will your self find the answer😉. Any more query?";
-   else if (
+   else if (searchTextValue.includes("how to")) {
+      answerFinal = `Showing some videos of youtube related to ${searchTextValue
+         .replace("how to", "")
+         .replace("do", "")
+         .replace("?", "")
+         .replace(".", "")}`;
+      window.open(
+         `https://youtube.com/results?search_query=${searchText.value}`, "_blank"
+      );
+   } else if (searchTextValue.includes("nandish")) {
+      answerFinal = "<b>All about Nandish:</b> <br>Description: He is my inventor. <br> Likes: Maths and Computer. <br>Passion: Web Development <br>Nationality: Indian."
+   }
+    else if (searchTextValue.includes("who is")) {
+      answerFinal = `Showing who is ${searchTextValue
+         .replace("who is", "")
+         .replace("?", "")
+         .replace(".", "")}`;
+      window.open(
+         `https://www.google.com/search?q=${searchTextValue}`, "_blank"
+      )
+   } else if (searchTextValue == "next")
+   answerFinal == "What next?";
+   else if (searchTextValue.includes("gaming") && searchTextValue.includes("yaars"))
+   answerFinal = "It's a wonerful youtube channel";
+    else if (searchTextValue.includes("movies")) {
+      answerFinal = "Showing search results for movies.";
+      window.open("https://www.google.com/search?q=movies", "_blank")
+   }
+    else if (
       searchTextValue.includes("factorial") ||
       searchTextValue.includes("!")
    ) {
@@ -725,8 +764,11 @@ const greetings = [
 ];
 let greeting;
 if (timeRange === "a.m.") greeting = greetings[0];
-else if (time.presentHour === 12) greeting = greetings[1];
-else if (time.presentHour > 12 && time.presentHour > 4) greeting = greetings[2];
+else if (time.presentHour === 12) {
+   if (time.presentMinute === 0) greeting = greetings[1];
+   else greeting = greetings[2];
+} else if (time.presentHour > 12 && time.getMinutes && time.presentHour > 4)
+   greeting = greetings[2];
 else greeting = greetings[3];
 
 greetingDOM.innerText = greeting;
