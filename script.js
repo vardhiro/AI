@@ -10,6 +10,7 @@ const firstNameElem = document.getElementById("first-name"),
    userName = document.getElementsByClassName("name"),
    continueBtn = document.getElementById("continue-btn"),
    greetingDOM = document.getElementById("greeting"),
+   form = document.getElementById("contact-form"),
    searchText = document.getElementById("search-text"),
    instructions = document.getElementById("instructions"),
    voice = document.getElementById("voice-search"),
@@ -17,8 +18,10 @@ const firstNameElem = document.getElementById("first-name"),
    answerDOM = document.getElementById("answer"),
    settingsBtn = document.getElementById("settings-btn");
 
-let allInfoGiven = false;
-let answerFinal;
+let allInfoGiven = false,
+   answerFinal,
+   AIFailedToAnswer = false,
+   submitForm = false;
 
 // Checks if the user is online of offline
 let userWasOffline = false;
@@ -280,7 +283,10 @@ function search() {
    let searchURI = encodeURIComponent(searchMainResult);
 
    /// For opening website/app
-   if (searchTextValue.includes("open")) {
+   if (!searchTextValue) {
+      answerFinal = "😶"
+   }
+   else if (searchTextValue.includes("open")) {
       searchTextValue = searchTextValue
          .replace("yt", "youtube")
          .replace("y t", "youtube");
@@ -488,16 +494,30 @@ function search() {
       answerFinal = "That's great!";
    else if (searchTextValue.includes("i am angry"))
       answerFinal =
-         "Oh..I am really very upset to know that you are angry😔. How can I help you?";
+         "Oh..I am really very upset to know that you are angry😔. How may I help you?";
    else if (searchTextValue.includes("i am upset"))
       answerFinal =
-         "Oh..I am very sorry to hear that😔. How can I make your mood better😉?";
+         "Oh..I am very sorry to hear that😔. How may I make your mood better😉?";
    else if (searchTextValue.includes("i am tired"))
       answerFinal =
-         "Oh..You should take some rest, tell me how can I make you feel energetic😉?";
-         else if (searchTextValue.includes("who are you") || searchTextValue.includes("who r u") || searchTextValue.includes("who r you"))
-         answerFinal = "I am an AI made by Nandish Sarkar (AKA NanCoder900)."
+         "Oh..You should take some rest, tell me how may I make you feel energetic😉?";
    else if (
+      searchTextValue.includes("who are you") ||
+      searchTextValue.includes("who r u") ||
+      searchTextValue.includes("who r you")
+   )
+      answerFinal = "I am an AI made by Nandish Sarkar (AKA NanCoder900).";
+   else if (searchTextValue.includes("ur name")) {
+      answerFinal = "My name is Ai Sarkar. Hope you like it.";
+   } else if (
+      searchTextValue.includes("name") &&
+      (searchTextValue.includes("ur inventor") ||
+         searchTextValue.includes("who made you") ||
+         searchTextValue.includes("ur creator"))
+   ) {
+      answerFinal =
+         "The name of my creator is NanCoder900 (AKA Nandish Sarkar)";
+   } else if (
       searchTextValue.includes("who made you") ||
       searchTextValue.includes("ur creator") ||
       searchTextValue.includes("ur inventor")
@@ -515,7 +535,7 @@ function search() {
    )
       answerFinal = `Nandish got the idea of making me in August and then he started the work after some days and after all I was officially launched on 9th September 2021. <br> So now it's your turn to judge my correct birthday.`;
    else if (searchTextValue.includes("u do")) {
-      answerFinal = `<h2 class="center-txt"> I can do many thing, like: </h2> <ul> <li>Open any website.</li> <li>Search on other website(<b>exceptions are there.</b>)</li> <li>Help you call somebody(e.g. Call police).</li> <li>Chat with you.</li> <li>Tell the time.</li> <li>Perform math calculations(till now, only simple operations).</li> <li>Tell the weather</li> <li>etc.</li> </ul>`;
+      answerFinal = `<h2 class="center-txt"> I can do many thing, like: </h2> <ol style="text-align: start"> <li>Open any website.</li> <li>Search on other website(<b>exceptions are there.</b>)</li> <li>Help you call somebody(e.g. Call police).</li> <li>Chat with you.</li> <li>Tell the time.</li> <li>Perform math calculations(till now, only simple operations).</li> <li>Tell the weather</li> <li>etc.</li> </ol>`;
    } else if (searchTextValue.includes("how to do potty"))
       answerFinal =
          "Just go to the toilet and you will your self find the answer😉. Any more query?";
@@ -526,28 +546,37 @@ function search() {
          .replace("?", "")
          .replace(".", "")}`;
       window.open(
-         `https://youtube.com/results?search_query=${searchText.value}`, "_blank"
+         `https://youtube.com/results?search_query=${searchText.value}`,
+         "_blank"
       );
    } else if (searchTextValue.includes("nandish")) {
-      answerFinal = "<b>All about Nandish:</b> <br>Description: He is my inventor. <br> Likes: Maths and Computer. <br>Passion: Web Development <br>Nationality: Indian."
-   }
-    else if (searchTextValue.includes("who is")) {
+      answerFinal =
+         "<b>All about Nandish:</b> <br>Description: He is my inventor. <br> Likes: Maths and Computer. <br>Passion: Web Development <br>Nationality: Indian.";
+   } else if (searchTextValue.includes("who is")) {
       answerFinal = `Showing who is ${searchTextValue
          .replace("who is", "")
          .replace("?", "")
          .replace(".", "")}`;
       window.open(
-         `https://www.google.com/search?q=${searchTextValue}`, "_blank"
-      )
-   } else if (searchTextValue == "next")
-   answerFinal == "What next?";
-   else if (searchTextValue.includes("gaming") && searchTextValue.includes("yaars"))
-   answerFinal = "It's a wonerful youtube channel";
-    else if (searchTextValue.includes("movies")) {
+         `https://www.google.com/search?q=${searchTextValue}`,
+         "_blank"
+      );
+   } else if (searchTextValue == "next") answerFinal == "What next?";
+   else if (
+      searchTextValue === "Help" ||
+      searchTextValue === "Help." ||
+      searchTextValue === "Help!"
+   )
+      answerFinal = "Yes. How may I help you?";
+   else if (
+      searchTextValue.includes("gaming") &&
+      searchTextValue.includes("yaars")
+   )
+      answerFinal = "It's a wonerful youtube channel";
+   else if (searchTextValue.includes("movie")) {
       answerFinal = "Showing search results for movies.";
-      window.open("https://www.google.com/search?q=movies", "_blank")
-   }
-    else if (
+      window.open("https://www.google.com/search?q=movies", "_blank");
+   } else if (
       searchTextValue.includes("factorial") ||
       searchTextValue.includes("!")
    ) {
@@ -606,18 +635,26 @@ function search() {
       }
    } else {
       let userAgreesToGetTheAnswerFromGoogle = window.confirm(
-         "Sorry, I can't answer to your query. So would you like to search in Google?."
+         "Sorry, I can't understand query. So would you like to search in Google?."
       );
 
       if (userAgreesToGetTheAnswerFromGoogle) {
          answerFinal = "Opening Google";
-         window.open(
-            `https://www.google.com/search?q=${encodeURIComponent(
-               searchText.value
-            )}`,
-            "_blank"
-         );
+         document.getElementById("form-next").value = `https://www.google.com/search?q=${encodeURIComponent(
+            searchText.value
+         )}`;
+         // window.open(
+         //    `https://www.google.com/search?q=${encodeURIComponent(
+         //       searchText.value
+         //    )}`,
+         //    "_blank"
+         // );
+      } else {
+         answerFinal = "";
+         document.getElementById("form-next").value = "https://nc900-ai.netlify.app";
       }
+
+      submitForm = true;
    }
    transcript = "";
    if (answerFinal) {
@@ -765,15 +802,32 @@ const greetings = [
 let greeting;
 if (timeRange === "a.m.") greeting = greetings[0];
 else if (time.presentHour === 12) {
-   if (time.presentMinute === 0) greeting = greetings[1];
-   else greeting = greetings[2];
-} else if (time.presentHour > 12 && time.getMinutes && time.presentHour > 4)
+   if (time.presentMinute === 0) {
+      greeting = greetings[1];
+   } else {
+      greeting = greetings[2];
+   }
+} else if (time.presentHour >= 1 && time.presentHour < 4) {
    greeting = greetings[2];
-else greeting = greetings[3];
+} else greeting = greetings[3];
 
 greetingDOM.innerText = greeting;
 if (localStorage.getItem("First Name"))
    document.title = `AI - ${greeting} ${localStorage.getItem("First Name")}!`;
 // 626ae011b9f2a70efc5fc4f98b510fe4
 
+// Some FORM stuffs
+
 document.getElementById("name").value = localStorage.getItem("First Name");
+document.getElementById(
+   "form-subject"
+).value = `New query from ${localStorage.getItem("First Name")}!`;
+
+form.addEventListener("submit", e => {
+   if (submitForm)
+   return true;
+   else {
+   e.preventDefault();
+   return false;
+   }
+})

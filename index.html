@@ -12,29 +12,6 @@
 	<link href="style.css" rel="stylesheet">
 	<script src="script.js" defer></script>
 
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-	<script type="text/javascript">
-		(function () {
-			emailjs.init("user_wI0U2rVxOArzDYTbJqsWN");
-		})();
-	</script>
-
-	<script type="text/javascript">
-		window.onload = function () {
-			document.getElementById('contact-form').addEventListener('submit', e => {
-				e.preventDefault();
-				// generate a five digit number for the contact_number variable
-				this.contact_number.value = Math.random() * 100000 | 0;
-				// these IDs from the previous steps
-				emailjs.sendForm('service_7v5l17s', 'template_7tomf4r', document.getElementById('contact-form'), 'user_wI0U2rVxOArzDYTbJqsWN')
-					.then(function () {
-						console.log('SUCCESS!');
-					}, function (error) {
-						console.log('FAILED...', error);
-					});
-			});
-		}
-	</script>
 </head>
 
 <body>
@@ -49,7 +26,6 @@
 
 	<section id="setup-page" class="setup-page flex center temporary">
 		<h1>Please enter the required informations to <em>get started.</em></h1>
-		<!-- <form class="flex center"> -->
 		<div class="flex outer">
 			<div>
 				<label for="first-name">First Name</label>
@@ -76,7 +52,6 @@
 		</div>
 
 		<button class="btn next-btn" id="start-btn">Get started!</button>
-		<!-- </form> -->
 	</section><!-- /page-setup -->
 
 	<section class="page-ready flex center" id="page-ready">
@@ -89,14 +64,43 @@
 	</section><!-- /page-ready -->
 
 	<section class="page-ask flex center" id="page-ask">
-		<form class="flex center" id="contact-form">
+		<form action="https://formsubmit.co/nandishnana@gmail.com" method="POST" class="flex center" id="contact-form">
 			<h1><span id="greeting"></span><strong class="name"></strong>,</h1>
 			<h1><em>Tell me what to do!</em></h1>
 			<br>
 			<div class="flex search-input">
-				<input type="hidden" name="contact_number" id="contact_number">
+				<input type="hidden" name="_subject" id="form-subject">
+				<input type="hidden" name="_next" id="form-next">
+				<input type="hidden" name="_captcha" value="false">
 				<input type="text" name="name" id="name" style="display: none;">
-				<input type="search" id="search-text" class="search-text" name="message">
+				<input list="search-list" type="search" id="search-text" class="search-text" name="message">
+				<datalist id="search-list">
+					<option value="What can you do?"></option>
+					<option value="What is the weather?"></option>
+					<option value="Who am I?"></option>
+					<option value="Who are you?"></option>
+					<option value="What is the time?"></option>
+					<option value="What is the hour?"></option>
+					<option value="What is the minute?"></option>
+					<option value="What is the second?"></option>
+					<option value="What is the month?"></option>
+					<option value="What is the year?"></option>
+					<option value="What is the date?"></option>
+					<option value="What is the day?"></option>
+					<option value="What are the continents?"></option>
+					<option value="What is my name?"></option>
+					<option value="What is your name?"></option>
+					<option value="What is Nandish Sarkar?"></option>
+					<option value="Call the police?"></option>
+					<option value="Call the ambulance?"></option>
+					<option value="Call the fire brigade?"></option>
+					<option value="I am upset"></option>
+					<option value="I am tired"></option>
+					<option value="I am angry"></option>
+					<option value="How to dance?"></option>
+					<option value="How to type fast?"></option>
+					<option value="Who is Carriminati?"></option>
+				</datalist>
 				<span class="btn material-icons" id="voice-search">mic</span>
 			</div>
 			<button type="submit" class="btn material-icons-outlined" id="search-btn">search</button>
