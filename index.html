@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>AI</title>
+	<meta name="author" content="Nandish Sarkar">
+	<meta name="description" content="Your own virtual assistant which helps you make your work easier">
+	<meta name="keywords" content="AI, nc900, nancoder900, nandish sarkar, Artificial Intelligence">
+	<title>AI - Your personal assistant</title>
 
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" type="image/png" sizes="32x32" href="Assets/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="Assets/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="Assets/favicon-16x16.png">
+	<link rel="manifest" href="Assets/manifest.json">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 	<link href="style.css" rel="stylesheet">
 	<script src="script.js" defer></script>
+	<script src="settings.js" defer></script>
 
 </head>
 
@@ -22,7 +31,9 @@
 			informations that you share with me are always safe and stored in this device, so no one can get these
 			informations until and unless they have your device with them.</p>
 		<button class="btn next-btn" id="next-btn">Next</button>
-	</section><!-- /Home-page -->
+
+		<!-- /Home-page -->
+	</section>
 
 	<section id="setup-page" class="setup-page flex center temporary">
 		<h1>Please enter the required informations to <em>get started.</em></h1>
@@ -52,7 +63,9 @@
 		</div>
 
 		<button class="btn next-btn" id="start-btn">Get started!</button>
-	</section><!-- /page-setup -->
+
+		<!-- /page-setup -->
+	</section>
 
 	<section class="page-ready flex center" id="page-ready">
 		<h1>Hello<span class="name"></span>!</h1>
@@ -61,19 +74,280 @@
 			constantly to make it more powerful. Thank you. Enjoy!</strong>
 
 		<button class="btn next-btn" id="continue-btn">Continue</button>
-	</section><!-- /page-ready -->
 
-	<section class="page-ask flex center" id="page-ask">
+		<!-- /page-ready -->
+	</section>
+
+	<section class="page-ask" id="page-ask">
+
+		<div class="page-ask-header flex flex-row">
+			<h1 class="welcome"><span id="greeting"></span><strong class="name"></strong>!</h1>
+			<!-- Settings -->
+			<nav>
+				<div class="settings">
+					<img src="Assets/settings-icon.svg" alt="" class="round-btn" title="Settings(shift+S)"
+						id="settings-btn">
+
+
+					<!-- Settings Page -->
+					<article class="settings-page">
+						<section class="flex">
+							<aside class="settings-titles" id="settings-titles">
+								<div class="settings-page-title">
+									<h1>Settings</h1>
+								</div>
+
+								<h2 class="flex active"><img src="Assets/profile.svg"> Profile</h1>
+									<h2 class="flex"><img src="Assets/brush.svg"> Personalise</h1>
+										<h2 class="flex"><img src="Assets/search.svg"> Search</h1>
+											<h2 class="flex"><img src="Assets/feedback.svg"> Send Feedback</h1>
+							</aside>
+
+							<main class="settings-tiles" id="settings-tiles">
+								<article id="profile-tile">
+									<h1>Profile</h1>
+
+									<div class="settings-minute-components">
+										<label for="userFirstNameInput">
+											<h3>First Name</h3>
+										</label>
+										<input type="text" placeholder="Enter Your First Name Here"
+											id="userFirstNameInput">
+									</div>
+
+									<div class="settings-minute-components">
+										<label for="userLastNameInput">
+											<h3>Last Name</h3>
+										</label>
+										<input type="text" placeholder="Enter Your Last Name Here"
+											id="userLastNameInput">
+									</div>
+									<div class="settings-minute-components">
+										<label for="userDateOfBirthInput">
+											<h3>Date of Birth</h3>
+										</label>
+										<input type="date" id="userDateOfBirthInput">
+									</div>
+									<div class="settings-minute-components">
+										<label for="userEmailInput">
+											<h3>Email</h3>
+										</label>
+										<input type="email" placeholder="Enter Your Email Here" id="userEmailInput">
+									</div>
+
+									<div class="warned-btn" id="forget-me-btn">Forget Me</div>
+
+								</article>
+								<!-- /Profile tile -->
+								<article id="personalise-tile">
+									<h1>Personalise</h1>
+
+									<div class="settings-minute-components">
+
+										<h2>Voice</h2>
+
+										<div class="settings-second-components">
+											<label for="outputVoicesInput">
+												<h3>Change Output Voice</h3>
+											</label>
+											<select id="outputVoicesInput">
+												<!-- Options will be added through JS -->
+											</select>
+										</div>
+
+										<div class="settings-second-components">
+											<label for="spokenResultsInput">
+												<h3>Spoken results</h3>
+											</label>
+											<select id="spokenResultsInput">
+												<option value="voice-search-only">Only in case of voice search</option>
+												<option value="always">Always</option>
+												<option value="never">Never</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="settings-minute-components">
+
+										<h2>Personal informations</h2>
+
+										<div class="settings-second-components">
+											<label for="userMotherNameInput">
+												<h3>Mother's name</h3>
+											</label>
+											<input type="text" id="userMotherNameInput"
+												placeholder="Enter Your Mother's Name Here">
+										</div>
+
+										<div class="settings-second-components">
+											<label for="userFatherNameInput">
+												<h3>Father's name</h3>
+											</label>
+											<input type="text" id="userFatherNameInput"
+												placeholder="Enter Your Father's Name Here">
+										</div>
+
+
+										<div class="settings-second-components">
+											<label for="userSisterNameInput">
+												<h3>Sister's name</h3>
+											</label>
+											<input type="text" id="userSisterNameInput"
+												placeholder="Enter Your Sister's Name Here">
+										</div>
+
+
+										<div class="settings-second-components">
+											<label for="userBrothererNameInput">
+												<h3>Brother's name</h3>
+											</label>
+											<input type="text" id="userBrothererNameInput"
+												placeholder="Enter Your Brother's Name Here">
+										</div>
+
+									</div>
+
+									<div class="settings-minute-components">
+										<h2>Colors</h2>
+
+										<div class="settings-second-components">
+											<label for="accentColorInput">
+												<h3>Accent color</h3>
+											</label>
+											<input type="color" id="accentColorInput">
+										</div>
+
+										<div class="settings-second-components">
+											<label for="selectionBackgroundColorInput">
+												<h3>Selection background color</h3>
+											</label>
+											<input type="color" id="selectionBackgroundColorInput">
+										</div>
+									</div>
+
+									<div class="settings-minute-components">
+										<h2>Font</h2>
+
+										<div class="settings-second-components">
+											<label for="fontFamilyInput">
+												<h3>Font Family</h3>
+											</label>
+											<select id="fontFamilyInput">
+												<option value="Ubuntu" selected>Ubuntu</option>
+												<option value="Segoe UI Regular">Segoe UI</option>
+												<option value="Source Sans Pro">Source Sans Pro</option>
+											</select>
+										</div>
+
+										<div class="settings-second-components">
+											<label for="fontSizeInput">
+												<h3>Font Size (Base)</h3>
+											</label>
+											<input type="number" id="fontSizeInput"
+												placeholder="Enter Font Size Of Your Wish Here" min="12" max="30"> (in
+											pixels)
+										</div>
+
+										<div class="settings-second-components">
+											<label for="fontColorInput">
+												<h3>Font Color</h3>
+											</label>
+											<input type="color" id="fontColorInput">
+										</div>
+									</div>
+
+									<div class="settings-minute-components">
+										<h2>Other Informations Related To Phone Numbers</h2>
+
+										<div class="settings-second-components">
+											<label for="policeTelNumInput">
+												<h3>Police Telephone Number (in your region) </h3>
+											</label>
+											<input type="tel" id="policeTelNumInput"
+												placeholder="Enter Police Station Telephone Number Here">
+										</div>
+
+										<div class="settings-second-components">
+											<label for="ambulanceTelNumInput">
+												<h3>Ambulance Telephone Number (in your region)</h3>
+											</label>
+											<input type="tel" id="ambulanceTelNumInput"
+												placeholder="Enter Telephone Number Here">
+										</div>
+
+										<div class="settings-second-components">
+											<label for="fireBrigadeTelNumInput">
+												<h3>Fire Brigade Telephone Number (in your region)</h3>
+											</label>
+											<input type="tel" id="fireBrigadeTelNumInput"
+												placeholder="Enter Fire Brigade Telephone Number Here">
+										</div>
+
+										<div class="settings-second-components">
+											<label for="countryCodeInput">
+												<h3>Country Code (phone mumber)</h3>
+											</label>
+											<input type="number" id="countryCodeInput"
+												placeholder="Enter Your Country Code Here">
+										</div>
+									</div>
+
+								</article>
+								<!-- </div> -->
+								<!-- /Personalise tile -->
+								<article id="search-tile">
+									<h1>Search</h1>
+
+									<div class="settings-minute-components">
+										<label for="fallbackSearchEngineInput">
+											<h3>Fallback Search Engine</h3>
+										</label>
+										<p>This setting lets you choose your favourite Search Engine, to which you will
+											be redirected if I fail to understand you query.</p>
+
+										<select id="fallbackSearchEngineInput">
+											<option value="google">Google (Default)</option>
+											<option value="bing">Bing</option>
+											<option value="duckduckgo">DuckDuckGo</option>
+											<option value="none">None (You will never be redirected, if this is
+												selected)</option>
+										</select>
+									</div>
+
+									<div class="settings-minute-components">
+										<h3>Auto Complete</h3>
+										<p>Auto Complete suggests you texts according to your previous queries.</p>
+										<label><input type="radio" name="auto-complete" id="autoCompleteOnInput"> On
+										</label>
+										<br>
+										<label><input type="radio" name="auto-complete" id="autoCompleteOffInput">
+											Off</label>
+									</div>
+								</article>
+								<!-- /Search tile -->
+								<article id="report-issue-tile">
+
+								</article>
+								<!-- /Report issue tile -->
+							</main>
+						</section>
+						<!-- </section> -->
+				</div>
+				<!-- </div> -->
+			</nav>
+		</div>
+
+		<div class="answer" id="answer"></div>
+
 		<form action="https://formsubmit.co/nandishnana@gmail.com" method="POST" class="flex center" id="contact-form">
-			<h1><span id="greeting"></span><strong class="name"></strong>,</h1>
-			<h1><em>Tell me what to do!</em></h1>
 			<br>
 			<div class="flex search-input">
 				<input type="hidden" name="_subject" id="form-subject">
 				<input type="hidden" name="_next" id="form-next">
 				<input type="hidden" name="_captcha" value="false">
 				<input type="text" name="name" id="name" style="display: none;">
-				<input list="search-list" type="search" id="search-text" class="search-text" name="message">
+				<input list="search-list" type="search" id="search-text" class="search-text" name="message"
+					placeholder="Ask here..." autofocus>
 				<datalist id="search-list">
 					<option value="What can you do?"></option>
 					<option value="What is the weather?"></option>
@@ -90,7 +364,7 @@
 					<option value="What are the continents?"></option>
 					<option value="What is my name?"></option>
 					<option value="What is your name?"></option>
-					<option value="What is Nandish Sarkar?"></option>
+					<option value="Who is Nandish Sarkar?"></option>
 					<option value="Call the police?"></option>
 					<option value="Call the ambulance?"></option>
 					<option value="Call the fire brigade?"></option>
@@ -101,21 +375,14 @@
 					<option value="How to type fast?"></option>
 					<option value="Who is Carriminati?"></option>
 				</datalist>
-				<span class="btn material-icons" id="voice-search">mic</span>
+				<div class="btns flex center">
+					<span class="material-icons" id="voice-search">mic</span>
+					<button type="submit" class="material-icons" id="search-btn">search</button>
+				</div>
 			</div>
-			<button type="submit" class="btn material-icons-outlined" id="search-btn">search</button>
-			<div class="answer" id="answer"></div>
 		</form>
 
-		<!-- More links and settings -->
-		<nav>
-			<div class="settings">
-				<img src="Assets/settings-icon.svg" alt="" class="round-btn" title="Settings(shift+s)" id="settings-btn">
-			</div>
 
-			<div class="links"></div>
-			<div class="profile"></div>
-		</nav>
 	</section> <!-- /page-ask -->
 </body>
 
