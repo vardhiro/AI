@@ -42,12 +42,14 @@
 }
 
 body {
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 body > * {
   height: 100vh;
   width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .warned-btn {
@@ -473,12 +475,12 @@ em {
 
 .page-ask .search-input {
   overflow: hidden;
-  --height: 6vh;
-  -ms-flex-item-align: center;
-      align-self: center;
+  --height: 10vh;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 100vw;
   height: var(--height);
-  margin: 0 auto;
   border: 2px solid #0000ffa0;
   -ms-flex-item-align: end;
       align-self: flex-end;
@@ -494,14 +496,16 @@ em {
 }
 
 .page-ask .search-input input {
-  padding: 0 1em;
+  padding: 0 1vw;
   width: 100%;
-  font-size: 1.15em;
+  font-size: clamp(1em, calc(1vw + 1em), 1.5em);
 }
 
 .page-ask .search-input .btns {
-  width: 10vw;
-  max-width: 100px;
+  --min-width: 2.5em;
+  --max-width: 100px;
+  --width: clamp(var(--min-width), 10vw, var(--max-width));
+  width: var(--width);
   height: var(--height);
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
@@ -521,13 +525,13 @@ em {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 100%;
+  width: var(--width);
   height: var(--height);
   border: none;
 }
 
 .page-ask .search-input .btns > *:hover, .page-ask .search-input .btns > *:focus {
-  color: #0000ffa0;
+  background-color: #ff3848;
 }
 
 .page-ask .answer {
