@@ -475,7 +475,9 @@ em {
 
 .page-ask .search-input {
   overflow: hidden;
-  --height: 10vh;
+  --min-height: 3em;
+  --max-height: 150px;
+  --height: clamp(var(--min-height), 8vh, var(--max-height));
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
