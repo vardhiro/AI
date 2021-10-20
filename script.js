@@ -157,10 +157,16 @@ speech.voice = voices[1];
 // Search Manipulation
 
 function search() {
+   speech.text = ""; // Reseting the speech text everytime the user searches
+
+   answerFinal = "";
+   answerDOM.innerHTML = "";
+
    const wordsToBeRemoved = [
       "solve",
       "what is the value of ",
       "what is the value ",
+      "what is the ",
       "what is ",
       "value of",
       "square of",
@@ -193,6 +199,11 @@ function search() {
       "from ",
       "and ",
       "& ",
+      "=",
+      "meaning",
+      "meaning ",
+      "'s ",
+      "called",
    ];
    /// Mathematical Problems
    function removeWordsForSolvingTheProblem() {
@@ -282,11 +293,11 @@ function search() {
 
    let searchURI = encodeURIComponent(searchMainResult);
 
-   /// For opening website/app
-   if (!searchTextValue) {
-      answerFinal = "😶"
-   }
-   else if (searchTextValue.includes("open")) {
+   if (searchTextValue.includes("setting")) {
+      settingsBtn.classList.add("round-btn--active");
+   } else if (!searchTextValue) {
+      answerFinal = "😶";
+   } else if (searchTextValue.includes("open")) {
       searchTextValue = searchTextValue
          .replace("yt", "youtube")
          .replace("y t", "youtube");
@@ -299,7 +310,7 @@ function search() {
          domain = ".com";
       }
       window.open("https://" + whatToOPEN + domain, "_blank");
-      answerFinal = `Opening ${whatToOPEN}`;
+      answerFinal = `Opening <b>${whatToOPEN}</b>`;
    } else if (searchTextValue.includes("search")) {
       let domain = "";
 
@@ -468,12 +479,20 @@ function search() {
    )
       window.open(`tel:102`, "_blank");
    else if (
-      searchTextValue.includes("hi") ||
-      searchTextValue.includes("hello") ||
-      searchTextValue.includes("hey")
+      (searchTextValue.includes("hi") ||
+         searchTextValue.includes("hello") ||
+         searchTextValue.includes("hey")) &&
+      !searchTextValue.includes("meaning")
    )
       answerFinal = `Hey ${localStorage.getItem("First Name")}! How are you.`;
    else if (
+      searchTextValue.includes("bye") &&
+      !searchTextValue.includes("meaning")
+   ) {
+      answerFinal = `Bye ${localStorage.getItem(
+         "First Name"
+      )}. I will miss you😊.`;
+   } else if (
       searchTextValue.includes("i am fine") &&
       (searchTextValue.includes("what about you") ||
          searchTextValue.includes("what about u") ||
@@ -535,7 +554,7 @@ function search() {
    )
       answerFinal = `Nandish got the idea of making me in August and then he started the work after some days and after all I was officially launched on 9th September 2021. <br> So now it's your turn to judge my correct birthday.`;
    else if (searchTextValue.includes("u do")) {
-      answerFinal = `<h2 class="center-txt"> I can do many thing, like: </h2> <ol style="text-align: start"> <li>Open any website.</li> <li>Search on other website(<b>exceptions are there.</b>)</li> <li>Help you call somebody(e.g. Call police).</li> <li>Chat with you.</li> <li>Tell the time.</li> <li>Perform math calculations(till now, only simple operations).</li> <li>Tell the weather</li> <li>etc.</li> </ol>`;
+      answerFinal = `<h2 class="center-txt"> I can do many thing, like: </h2>  <li><b>1.</b> Open any website.</li> <li><b>2.</b> Search on other website(<b>exceptions are there.</b>)</li> <li><b>3.</b> Help you call somebody(e.g. Call police).</li> <li><b>4. </b>Chat with you.</li> <li><b>5.</b> Tell the time.</li> <li><b>6.</b> Perform math calculations(till now, only simple operations).</li> <li><b>7. </b> Tell the weather</li> <li><b>8. </b>Tell the meaning of a word</li> <li>etc.</li> `;
    } else if (searchTextValue.includes("how to do potty"))
       answerFinal =
          "Just go to the toilet and you will your self find the answer😉. Any more query?";
@@ -553,16 +572,15 @@ function search() {
       answerFinal =
          "<b>All about Nandish:</b> <br>Description: He is my inventor. <br> Likes: Maths and Computer. <br>Passion: Web Development <br>Nationality: Indian.";
    } else if (searchTextValue.includes("who is")) {
-      answerFinal = `Showing who is ${searchTextValue
+      answerFinal = `Showing <b>who is ${searchTextValue
          .replace("who is", "")
          .replace("?", "")
-         .replace(".", "")}`;
+         .replace(".", "")}.</b>`;
       window.open(
          `https://www.google.com/search?q=${searchTextValue}`,
          "_blank"
       );
-   } else if (searchTextValue == "next") answerFinal == "What next?";
-   else if (
+   } else if (
       searchTextValue === "Help" ||
       searchTextValue === "Help." ||
       searchTextValue === "Help!"
@@ -572,7 +590,7 @@ function search() {
       searchTextValue.includes("gaming") &&
       searchTextValue.includes("yaars")
    )
-      answerFinal = "It's a wonerful youtube channel";
+      answerFinal = "Oh! Gaming Yaar, It's a wonerful youtube channel";
    else if (searchTextValue.includes("movie")) {
       answerFinal = "Showing search results for movies.";
       window.open("https://www.google.com/search?q=movies", "_blank");
@@ -634,35 +652,90 @@ function search() {
          }
       }
    } else {
-      let userAgreesToGetTheAnswerFromGoogle = window.confirm(
-         "Sorry, I can't understand query. So would you like to search in Google?."
-      );
+      // Dictionary
+      removeWordsForSolvingTheProblem();
 
-      if (userAgreesToGetTheAnswerFromGoogle) {
-         answerFinal = "Opening Google";
-         document.getElementById("form-next").value = `https://www.google.com/search?q=${encodeURIComponent(
-            searchText.value
-         )}`;
-         // window.open(
-         //    `https://www.google.com/search?q=${encodeURIComponent(
-         //       searchText.value
-         //    )}`,
-         //    "_blank"
-         // );
-      } else {
-         answerFinal = "";
-         document.getElementById("form-next").value = "https://nc900-ai.netlify.app";
-      }
+      const wordElem = document.createElement("div");
+      const meaningElem = document.createElement("div");
+      const exampleElem = document.createElement("div");
+      const synonymsElem = document.createElement("div");
 
-      submitForm = true;
+      // function makeGetRequest(api) {
+      window.speechSynthesis.speak(speech);
+      let api = `https://api.dictionaryapi.dev/api/v2/entries/en/${searchTextValue}`;
+      fetch(api)
+         .then((response) => response.json())
+         .then((response) => {
+            let word = searchTextValue;
+            if (response.title) {
+               submitForm = true;
+               //if api returns the message of can't find word
+               let userAgreesToGetTheAnswerFromGoogle = window.confirm(
+                  "Sorry, I can't understand your query. So would you like to search in Google?."
+               );
+
+               if (userAgreesToGetTheAnswerFromGoogle) {
+                  answerFinal = "Opening Google";
+                  document.getElementById("form-next").value = location.href;
+                  window.open(
+                     `https://www.google.com/search?q=${encodeURIComponent(
+                        searchText.value
+                     )}`,
+                     "_blank"
+                  );
+               } else {
+                  answerFinal = "";
+                  document.getElementById("form-next").value = location.href;
+               }
+            } else {
+               let definitions = response[0].meanings[0].definitions[0],
+                  phonetics = `${response[0].meanings[0].partOfSpeech} /${response[0].phonetics[0].text}/`;
+
+               wordElem.innerHTML = `<b>Word:</b> ${response[0].word} <br> ${phonetics}`;
+               meaningElem.innerHTML = `<h3>Meaning</h3> <p>${definitions.definition}</p>`;
+               if (definitions.example) {
+                  exampleElem.innerHTML = `<h3>Example</h3> <p>${definitions.example}.</p>`;
+               } else {
+                  exampleElem.innerHTML = "<h3>Example</h3> N/A.";
+               }
+
+               let synonyms = [];
+               for (let i = 0; i < 5; i++) {
+                  if (definitions.synonyms[i])
+                     synonyms.push(definitions.synonyms[i]);
+               }
+               if (synonyms.length > 0) {
+                  synonymsElem.innerHTML = `<h3>Synonyms</h3> <p>${synonyms.join(
+                     ", "
+                  )}.</p>`;
+               } else synonymsElem.innerHTML = "<h1>Synonyms</h1> <br> N/A.";
+
+               let dictionaryElems = [
+                  wordElem,
+                  meaningElem,
+                  exampleElem,
+                  synonymsElem,
+               ];
+
+               for (let i = 0; i < dictionaryElems.length; i++) {
+                  answerDOM.appendChild(dictionaryElems[i]);
+               }
+
+               speech.text = answerDOM.innerText;
+               window.speechSynthesis.speak(speech);
+            }
+         });
    }
+
    transcript = "";
    if (answerFinal) {
       answerFinal = String(answerFinal).replace("NaN", "invalid number");
       answerDOM.innerHTML = answerFinal;
+      speech.text = answerDOM.innerText;
+      window.speechSynthesis.speak(speech);
+
+      // speech.text = ""; // Reseting the speech text after we're done
    }
-   speech.text = answerDOM.innerText;
-   window.speechSynthesis.speak(speech);
 }
 
 // Knowledge
@@ -748,7 +821,9 @@ function getWeather() {
    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
    } else {
-      alert("Geolocation is not supported by this browser.");
+      alert(
+         "Sorry! I can't find the weather because 'Geolocation' is not supported by the browser."
+      );
    }
 
    function showPosition(position) {
@@ -823,11 +898,21 @@ document.getElementById(
    "form-subject"
 ).value = `New query from ${localStorage.getItem("First Name")}!`;
 
-form.addEventListener("submit", e => {
-   if (submitForm)
-   return true;
+form.addEventListener("submit", (e) => {
+   if (submitForm) return true;
    else {
-   e.preventDefault();
-   return false;
+      e.preventDefault();
+      return false;
    }
-})
+});
+
+setInterval(() => {
+   if (searchText.value) {
+      // when user types something or searched something
+      voice.style.display = "none";
+      searchBtn.style.display = "";
+   } else {
+      searchBtn.style.display = "none";
+      voice.style.display = "";
+   }
+}, 1000);
