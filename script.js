@@ -493,7 +493,7 @@ function search() {
          "First Name"
       )}. I will miss you😊.`;
    } else if (
-      searchTextValue.includes("i am fine") &&
+      (searchTextValue.includes("i am fine") || searchTextValue.includes("i'm fine")) &&
       (searchTextValue.includes("what about you") ||
          searchTextValue.includes("what about u") ||
          searchTextValue.includes("how are you") ||
@@ -509,15 +509,15 @@ function search() {
       searchTextValue.includes("how are u")
    )
       answerFinal = "I am fine! What about you?";
-   else if (searchTextValue.includes("i am fine"))
+   else if ((searchTextValue.includes("i am fine")) || (searchTextValue.includes("i'm fine")))
       answerFinal = "That's great!";
-   else if (searchTextValue.includes("i am angry"))
+   else if (searchTextValue.includes("i am angry") || (searchTextValue.includes("i'm angry")))
       answerFinal =
          "Oh..I am really very upset to know that you are angry😔. How may I help you?";
-   else if (searchTextValue.includes("i am upset"))
+   else if (searchTextValue.includes("i am upset") || (searchTextValue.includes("i'm upset")))
       answerFinal =
          "Oh..I am very sorry to hear that😔. How may I make your mood better😉?";
-   else if (searchTextValue.includes("i am tired"))
+   else if (searchTextValue.includes("i am tired") || (searchTextValue.includes("i'm tired")))
       answerFinal =
          "Oh..You should take some rest, tell me how may I make you feel energetic😉?";
    else if (
